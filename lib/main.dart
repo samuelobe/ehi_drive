@@ -2,13 +2,19 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:splashscreen/splashscreen.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,7 +23,14 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: SplashScreen(
+        loaderColor: const Color(0xfffdfeff),
+        backgroundColor: const Color(0xfffdfeff),
+        seconds: 5,
+        photoSize: 200,
+        navigateAfterSeconds: MyHomePage(title: "Home Page",),
+        image: Image.asset('assets/ehidrive-animation.gif'),
+      ),
     );
   }
 }
@@ -47,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
   </soap12:Body>
 </soap12:Envelope>""";
 
-  _sendMessage() async {
+  _sendMessageLogin() async {
     http.Response response = await http
         .post('https://ehix.ehiconnect.com/ws2/pin.asmx',
             headers: {
@@ -63,6 +76,10 @@ class _MyHomePageState extends State<MyHomePage> {
     });
 
     print(response);
+  }
+
+  _sendMessagePin() async {
+
   }
 
   @override
@@ -86,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _sendMessage,
+        onPressed: _sendMessageLogin,
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
