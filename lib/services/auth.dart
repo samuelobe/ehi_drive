@@ -10,6 +10,7 @@ import 'package:ehidrive/screens/login_screen.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:xml/xml.dart';
 
 class Auth {
@@ -66,6 +67,9 @@ class Auth {
     String errorcode;
     String message;
     String deviceID = await _getId();
+
+    final prefs = await SharedPreferences.getInstance();
+
     var requestBody = """ 
 <?xml version="1.0" encoding="utf-8"?>
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -90,6 +94,11 @@ class Auth {
         body: utf8.encode(requestBody),
       );
       var statusCode = response.statusCode;
+      var valueIsEmpty = prefs.getBool('deviceVerified') == null;
+
+      if (valueIsEmpty) {
+        prefs.setBool('deviceVerified', false);
+      }
 
       if (statusCode == 200) {
         var document = XmlDocument.parse(response.body);
@@ -102,12 +111,13 @@ class Auth {
 
         print("Success: $success, Errorcode: $errorcode, Message: $message");
 
-        if (!success && errorcode == 'VD002') {
+        if (success) {
+          print("Going to Pin Screen");
+          prefs.setBool('deviceVerified', true);
+          return AuthScreen();
+        } else if (!success && errorcode == 'VD002') {
           print("Going to Login Screen");
           return LoginScreen();
-        } else if (success) {
-          print("Going to Pin Screen");
-          return AuthScreen();
         } else {
           print("Going to Alert Screen");
           return AlertScreen(
@@ -129,10 +139,8 @@ class Auth {
     }
   }
 
-  registerDevice() async {
+  registerDevice(String pin, String userID) async {
     var success;
-    var userID = "mobiletest";
-
     var deviceID = await _getId();
     var requestBody = """ 
 <?xml version="1.0" encoding="utf-8"?>
@@ -143,7 +151,7 @@ class Auth {
       <sUserId>$userID</sUserId>
       <sDeviceId>$deviceID</sDeviceId>
       <sRegisterId>123456</sRegisterId>
-      <sPin>123456</sPin>
+      <sPin>$pin</sPin>
     </RegisterDevice>
   </soap:Body>
 </soap:Envelope>""";
@@ -163,7 +171,7 @@ class Auth {
         var document = XmlDocument.parse(response.body);
         print(document.toXmlString(pretty: true, indent: '\t'));
         success = document.findAllElements('success').first.children.first;
-        print('Success: $success');
+        print('New Device Registration Succeeded?: $success');
       }
     } catch (e) {
       print(e);
@@ -213,7 +221,6 @@ class Auth {
         print(deviceID);
 
         success = _getElement(document, 'success') == 'true';
-
         errorcode = _getElement(document, 'errorcode');
         message = _getElement(document, 'message');
 
@@ -224,7 +231,9 @@ class Auth {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => CreatePinScreen(),
+                builder: (context) => CreatePinScreen(
+                  user: user,
+                ),
               ));
         } else {
           _showFlushbar(context, message);

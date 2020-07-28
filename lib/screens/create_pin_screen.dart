@@ -1,9 +1,12 @@
+import 'package:ehidrive/models/user.dart';
 import 'package:ehidrive/services/auth.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 
 class CreatePinScreen extends StatefulWidget {
+  final User user;
+  CreatePinScreen({this.user});
   @override
   CreatePinScreenState createState() => CreatePinScreenState();
 }
@@ -13,10 +16,7 @@ class CreatePinScreenState extends State<CreatePinScreen> {
   final FocusNode _pinPutFocusNode1 = FocusNode();
   final TextEditingController _pinPutController2 = TextEditingController();
   final FocusNode _pinPutFocusNode2 = FocusNode();
-  Auth auth = Auth();
-
-  String firstPin = "";
-  String secondPin = "";
+  final Auth auth = Auth();
 
   BoxDecoration get _pinPutDecoration {
     return BoxDecoration(
@@ -26,13 +26,11 @@ class CreatePinScreenState extends State<CreatePinScreen> {
   }
 
   void createPin() async {
+    String firstPin = _pinPutController1.value.text;
+    String secondPin = _pinPutController2.value.text;
     var text;
-
-    if (firstPin == secondPin) {
-      // auth.createPIN(user: widget.user, pin: firstPin);
-      // auth.authSignUp(user: widget.user, context: context);
-      // prefs.setStringList(widget.user.email, [widget.user.password, ""]);
-    } else if (firstPin == "" || secondPin == "") {
+    if ((firstPin == "" || secondPin == "") ||
+        (firstPin.length < 4 || secondPin.length < 4)) {
       text = "Please fill out both pin fields";
       Flushbar(
         margin: EdgeInsets.only(bottom: 5),
@@ -45,6 +43,10 @@ class CreatePinScreenState extends State<CreatePinScreen> {
         duration: Duration(seconds: 3),
         //animationDuration: Duration(milliseconds: 100),
       )..show(context);
+    } else if (firstPin == secondPin) {
+      // auth.createPIN(user: widget.user, pin: firstPin);
+      // auth.authSignUp(user: widget.user, context: context);
+      // prefs.setStringList(widget.user.email, [widget.user.password, ""]);
     } else {
       text = "Inputted PINs are not the same";
       Flushbar(
@@ -82,9 +84,6 @@ class CreatePinScreenState extends State<CreatePinScreen> {
                     padding: EdgeInsets.all(20),
                     child: PinPut(
                       fieldsCount: 4,
-                      onSubmit: (String pin) {
-                        firstPin = pin;
-                      },
                       focusNode: _pinPutFocusNode1,
                       controller: _pinPutController1,
                       submittedFieldDecoration: _pinPutDecoration.copyWith(
@@ -106,9 +105,6 @@ class CreatePinScreenState extends State<CreatePinScreen> {
                     padding: EdgeInsets.all(20),
                     child: PinPut(
                       fieldsCount: 4,
-                      onSubmit: (String pin) {
-                        secondPin = pin;
-                      },
                       focusNode: _pinPutFocusNode2,
                       controller: _pinPutController2,
                       submittedFieldDecoration: _pinPutDecoration.copyWith(
