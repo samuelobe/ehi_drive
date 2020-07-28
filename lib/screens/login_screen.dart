@@ -110,19 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           auth.verifyDevice();
                         },
                       ),
-                      RaisedButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(14.0),
-                          child: Text(
-                            "Sign Up",
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
-                        onPressed: (){},
-                      ),
+                      
                     ],
                   )
                 ],
