@@ -5,7 +5,7 @@ class User {
   final String password;
   User({@required this.username, @required this.password});
 
-  printAccount(){
+  printAccount() {
     print("Username: $username, Password: $password");
   }
 }

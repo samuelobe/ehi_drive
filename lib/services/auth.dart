@@ -30,9 +30,20 @@ class Auth {
   }
 
   String _getElement(XmlDocument document, String elementName) {
-    var element = document.findAllElements(elementName).length != 0
-        ? document.findAllElements(elementName).first.children.first.toString()
-        : null;
+    var element;
+    try {
+      element = document.findAllElements(elementName).length != 0
+          ? document
+              .findAllElements(elementName)
+              .first
+              .children
+              .first
+              .toString()
+          : null;
+    } catch (e) {
+      element = null;
+    }
+
     return element;
   }
 
@@ -163,8 +174,8 @@ class Auth {
     bool success;
     String errorcode;
     String message;
-    String username = "mobiletest";//user.username;
-    String password = "welcome123";//user.password;
+    String username = user.username;
+    String password = user.password;
     String deviceID = await _getId();
 
     String systemData = "$deviceID-$deviceType-1.0.0";
@@ -200,7 +211,9 @@ class Auth {
 
         print(document.toXmlString(pretty: true, indent: '\t'));
         print(deviceID);
+
         success = _getElement(document, 'success') == 'true';
+
         errorcode = _getElement(document, 'errorcode');
         message = _getElement(document, 'message');
 
