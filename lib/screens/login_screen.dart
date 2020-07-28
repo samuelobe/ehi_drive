@@ -106,11 +106,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: TextStyle(fontSize: 20),
                           ),
                         ),
-                        onPressed: (){
+                        onPressed: () {
                           auth.verifyDevice();
                         },
                       ),
-                      
                     ],
                   )
                 ],

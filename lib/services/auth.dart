@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:device_info/device_info.dart';
 import 'package:ehidrive/screens/alert_screen.dart';
+import 'package:ehidrive/screens/auth_screen.dart';
 import 'package:ehidrive/screens/login_screen.dart';
-import 'package:ehidrive/screens/pin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:xml/xml.dart';
@@ -27,13 +27,7 @@ class Auth {
 
   String _getElement(XmlDocument document, String elementName) {
     var element = document.findAllElements(elementName).length != 0
-        ?  document
-                .findAllElements(elementName)
-                .first
-                .children
-                .first
-                .toString()
-            
+        ? document.findAllElements(elementName).first.children.first.toString()
         : null;
     return element;
   }
@@ -76,7 +70,7 @@ class Auth {
         success = _getElement(document, 'success') == 'true';
         errorcode = _getElement(document, 'errorcode');
         message = _getElement(document, 'message');
-        
+
         print("Success: $success, Errorcode: $errorcode, Message: $message");
 
         if (!success && errorcode == 'VD002') {
@@ -84,19 +78,25 @@ class Auth {
           return LoginScreen();
         } else if (success) {
           print("Going to Pin Screen");
-          return PinScreen();
+          return AuthScreen();
         } else {
           print("Going to Alert Screen");
-          return AlertScreen(message: message,);
+          return AlertScreen(
+            message: message,
+          );
         }
       } else {
         print("Going to Alert Screen");
-        return AlertScreen(message: "Error $statusCode",);
+        return AlertScreen(
+          message: "Error $statusCode",
+        );
       }
     } catch (e) {
       print(e);
       print("Going to Alert Screen");
-      return AlertScreen(message: e.toString(),);
+      return AlertScreen(
+        message: e.toString(),
+      );
     }
   }
 

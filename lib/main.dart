@@ -1,15 +1,16 @@
-
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 import 'services/auth.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); 
-  
+  WidgetsFlutterBinding.ensureInitialized();
+
   Auth auth = Auth();
   Widget initialScreen = await auth.verifyDevice();
-  runApp(MyApp(screen: initialScreen,));
+  runApp(MyApp(
+    screen: initialScreen,
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -17,7 +18,6 @@ class MyApp extends StatefulWidget {
   MyApp({this.screen});
   @override
   _MyAppState createState() => _MyAppState();
-
 }
 
 class _MyAppState extends State<MyApp> {
@@ -33,11 +33,10 @@ class _MyAppState extends State<MyApp> {
         loaderColor: const Color(0xfffdfeff),
         backgroundColor: const Color(0xfffdfeff),
         seconds: 5,
-        photoSize: 200,
+        photoSize: 100,
         navigateAfterSeconds: widget.screen,
         image: Image.asset('assets/ehidrive-animation.gif'),
       ),
     );
   }
 }
-
