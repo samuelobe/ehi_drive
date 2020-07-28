@@ -1,3 +1,4 @@
+import 'package:ehidrive/models/user.dart';
 import 'package:ehidrive/services/auth.dart';
 import 'package:flutter/material.dart';
 
@@ -10,18 +11,19 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formkey = GlobalKey<FormState>();
-  String email, password;
+  String username, password;
   Auth auth = Auth();
 
-  // Future<void> signIn() async {
-  //   var formState = _formkey.currentState;
+  Future<void> signIn() async {
+    var formState = _formkey.currentState;
 
-  //   if (formState.validate()) {
-  //     formState.save();
-  //     var user = User(email: email, password: password);
-  //     auth.authSignIn(user: user, context: context);
-  //   }
-  // }
+    if (formState.validate()) {
+      formState.save();
+      var user = User(username: username, password: password);
+      user.printAccount();
+      auth.verifyUser(user: user, context: context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +49,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 70,
                   ),
                   TextFormField(
+                    maxLength: 10,
                     decoration: InputDecoration(
                       labelText: "Username",
+                      counterText: "",
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25.0),
@@ -64,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       }
                       return output;
                     },
-                    onSaved: (input) => email = input.trim(),
+                    onSaved: (input) => username = input.trim(),
                   ),
                   SizedBox(
                     height: 20,
@@ -106,9 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: TextStyle(fontSize: 20),
                           ),
                         ),
-                        onPressed: () {
-                          auth.verifyDevice();
-                        },
+                        onPressed: signIn,
                       ),
                     ],
                   )
