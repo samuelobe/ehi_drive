@@ -1,16 +1,23 @@
 
-import 'package:ehidrive/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 
-void main() {
-  runApp(MyApp());
+import 'services/auth.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); 
+  
+  Auth auth = Auth();
+  Widget initialScreen = await auth.verifyDevice();
+  runApp(MyApp(screen: initialScreen,));
 }
 
 class MyApp extends StatefulWidget {
-  // This widget is the root of your application.
+  final Widget screen;
+  MyApp({this.screen});
   @override
   _MyAppState createState() => _MyAppState();
+
 }
 
 class _MyAppState extends State<MyApp> {
@@ -27,7 +34,7 @@ class _MyAppState extends State<MyApp> {
         backgroundColor: const Color(0xfffdfeff),
         seconds: 5,
         photoSize: 200,
-        navigateAfterSeconds: LoginScreen(),
+        navigateAfterSeconds: widget.screen,
         image: Image.asset('assets/ehidrive-animation.gif'),
       ),
     );

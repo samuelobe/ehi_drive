@@ -2,6 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:device_info/device_info.dart';
+import 'package:ehidrive/screens/alert_screen.dart';
+import 'package:ehidrive/screens/login_screen.dart';
+import 'package:ehidrive/screens/pin_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:xml/xml.dart';
 
@@ -21,11 +25,24 @@ class Auth {
     }
   }
 
-  verifyDevice() async {
-    var success;
-    var errorcode;
-    var message;
-    var deviceID = await _getId();
+  String _getElement(XmlDocument document, String elementName) {
+    var element = document.findAllElements(elementName).length != 0
+        ?  document
+                .findAllElements(elementName)
+                .first
+                .children
+                .first
+                .toString()
+            
+        : null;
+    return element;
+  }
+
+  Future<Widget> verifyDevice() async {
+    bool success;
+    String errorcode;
+    String message;
+    String deviceID = await _getId();
     var requestBody = """ 
 <?xml version="1.0" encoding="utf-8"?>
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -49,24 +66,37 @@ class Auth {
         },
         body: utf8.encode(requestBody),
       );
+      var statusCode = response.statusCode;
 
-      if (response.statusCode == 200) {
+      if (statusCode == 200) {
         var document = XmlDocument.parse(response.body);
+
         print(document.toXmlString(pretty: true, indent: '\t'));
         print(deviceID);
-        success = document.findAllElements('success').length != 0
-            ? document.findAllElements('success').first.children.first
-            : null;
-        errorcode = document.findAllElements('errorcode').length != 0
-            ? document.findAllElements('errorcode').first.children.first
-            : null;
-        message = document.findAllElements('message').length != 0
-            ? document.findAllElements('message').first.children.first
-            : null;
+        success = _getElement(document, 'success') == 'true';
+        errorcode = _getElement(document, 'errorcode');
+        message = _getElement(document, 'message');
+        
         print("Success: $success, Errorcode: $errorcode, Message: $message");
+
+        if (!success && errorcode == 'VD002') {
+          print("Going to Login Screen");
+          return LoginScreen();
+        } else if (success) {
+          print("Going to Pin Screen");
+          return PinScreen();
+        } else {
+          print("Going to Alert Screen");
+          return AlertScreen(message: message,);
+        }
+      } else {
+        print("Going to Alert Screen");
+        return AlertScreen(message: "Error $statusCode",);
       }
     } catch (e) {
       print(e);
+      print("Going to Alert Screen");
+      return AlertScreen(message: e.toString(),);
     }
   }
 
