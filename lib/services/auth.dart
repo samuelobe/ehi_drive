@@ -7,6 +7,7 @@ import 'package:ehidrive/screens/alert_screen.dart';
 import 'package:ehidrive/screens/auth_screen.dart';
 import 'package:ehidrive/screens/create_pin_screen.dart';
 import 'package:ehidrive/screens/login_screen.dart';
+import 'package:ehidrive/screens/menu_screen.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -48,7 +49,7 @@ class Auth {
     return element;
   }
 
-  _showFlushbar(BuildContext context, String message) {
+  void _showFlushbar(BuildContext context, String message) {
     Flushbar(
       margin: EdgeInsets.only(bottom: 5),
       maxWidth: MediaQuery.of(context).size.width * 0.95,
@@ -67,8 +68,6 @@ class Auth {
     String errorcode;
     String message;
     String deviceID = await _getId();
-
-    final prefs = await SharedPreferences.getInstance();
 
     var requestBody = """ 
 <?xml version="1.0" encoding="utf-8"?>
@@ -94,11 +93,6 @@ class Auth {
         body: utf8.encode(requestBody),
       );
       var statusCode = response.statusCode;
-      var valueIsEmpty = prefs.getBool('deviceVerified') == null;
-
-      if (valueIsEmpty) {
-        prefs.setBool('deviceVerified', false);
-      }
 
       if (statusCode == 200) {
         var document = XmlDocument.parse(response.body);
@@ -113,7 +107,6 @@ class Auth {
 
         if (success) {
           print("Going to Pin Screen");
-          prefs.setBool('deviceVerified', true);
           return AuthScreen();
         } else if (!success && errorcode == 'VD002') {
           print("Going to Login Screen");
@@ -139,8 +132,9 @@ class Auth {
     }
   }
 
-  registerDevice(String pin, String userID) async {
-    var success;
+  registerDevice({String pin, String userID, BuildContext context}) async {
+    bool success;
+    final prefs = await SharedPreferences.getInstance();
     var deviceID = await _getId();
     var requestBody = """ 
 <?xml version="1.0" encoding="utf-8"?>
@@ -170,10 +164,23 @@ class Auth {
       if (response.statusCode == 200) {
         var document = XmlDocument.parse(response.body);
         print(document.toXmlString(pretty: true, indent: '\t'));
-        success = document.findAllElements('success').first.children.first;
+        success = _getElement(document, 'success') == 'true';
+        if (success) {
+          prefs.setString("pin", pin);
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MenuScreen(),
+              ));
+        } else {
+          _showFlushbar(context, "Registration Failed");
+        }
         print('New Device Registration Succeeded?: $success');
+      } else {
+        _showFlushbar(context, "Network Error");
       }
     } catch (e) {
+      _showFlushbar(context, e.toString());
       print(e);
     }
   }
@@ -185,8 +192,9 @@ class Auth {
     String username = user.username;
     String password = user.password;
     String deviceID = await _getId();
-
     String systemData = "$deviceID-$deviceType-1.0.0";
+
+    final prefs = await SharedPreferences.getInstance();
     //TODO: ADD SYSTEM DATA HERE
     var requestBody = """ 
 <?xml version="1.0" encoding="utf-8"?>
@@ -227,14 +235,21 @@ class Auth {
         print("Success: $success, Errorcode: $errorcode, Message: $message");
 
         if (success) {
-          print("Going to Pin Screen");
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => CreatePinScreen(
-                  user: user,
-                ),
-              ));
+          var pinCreated = prefs.getString('pin') == null;
+          if (!pinCreated) {
+            print('Going to Menu Screen');
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => MenuScreen()));
+          } else {
+            print("Going to Pin Screen");
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CreatePinScreen(
+                    user: user,
+                  ),
+                ));
+          }
         } else {
           _showFlushbar(context, message);
         }
@@ -247,4 +262,77 @@ class Auth {
       _showFlushbar(context, e.toString());
     }
   }
+
+  verifyPin({String pin, BuildContext context}) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    var storedPin = prefs.getString('pin');
+
+    if (pin == storedPin) {
+      print('Pin Accepted!');
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => MenuScreen()));
+    } else {
+      _showFlushbar(context, "Incorrect PIN");
+    }
+  }
+
+//   verifyPin({String pin, BuildContext context}) async {
+//     bool success;
+//     String errorcode;
+//     String message;
+//     String deviceID = await _getId();
+
+//     var requestBody = """
+// <?xml version="1.0" encoding="utf-8"?>
+// <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+//   <soap:Body>
+//     <VerifyPin xmlns="http://emr.ehiconnect.com/">
+//       <sApikey>$apiKey</sApikey>
+//       <sDeviceId>$deviceID</sDeviceId>
+//       <sPin>$pin</sPin>
+//     </VerifyPin>
+//   </soap:Body>
+// </soap:Envelope>""";
+
+//     try {
+//       http.Response response = await http.post(
+//         apiURL,
+//         headers: {
+//           "Content-Type": "text/xml; charset=utf-8",
+//           "Host": "ehix.ehiconnect.com",
+//           "SOAPAction": "http://emr.ehiconnect.com/VerifyPin"
+//         },
+//         body: utf8.encode(requestBody),
+//       );
+//       var statusCode = response.statusCode;
+
+//       if (statusCode == 200) {
+//         var document = XmlDocument.parse(response.body);
+
+//         print(document.toXmlString(pretty: true, indent: '\t'));
+//         print(deviceID);
+
+//         success = _getElement(document, 'success') == 'true';
+//         errorcode = _getElement(document, 'errorcode');
+//         message = _getElement(document, 'message');
+
+//         print("Success: $success, Errorcode: $errorcode, Message: $message");
+
+//         if (success) {
+//           print("Going to Pin Screen");
+//           Navigator.push(
+//               context, MaterialPageRoute(builder: (context) => MenuScreen()));
+//         } else {
+//           _showFlushbar(context, message);
+//         }
+//       } else {
+//         message = 'Network Error: $statusCode';
+//         _showFlushbar(context, message);
+//       }
+//     } catch (e) {
+//       print(e);
+//       _showFlushbar(context, e.toString());
+//     }
+//   }
 }

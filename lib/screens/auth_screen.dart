@@ -1,4 +1,5 @@
 import 'package:ehidrive/services/auth.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 
@@ -14,7 +15,31 @@ class AuthScreenState extends State<AuthScreen> {
   final FocusNode _pinPutFocusNode = FocusNode();
   Auth auth = Auth();
 
-  String submittedPin = "";
+  void _displayFlushbar(String message) {
+    Flushbar(
+      margin: EdgeInsets.only(bottom: 5),
+      maxWidth: MediaQuery.of(context).size.width * 0.95,
+      flushbarStyle: FlushbarStyle.FLOATING,
+      borderRadius: 8,
+      flushbarPosition: FlushbarPosition.TOP,
+      message: message,
+      isDismissible: true,
+      duration: Duration(seconds: 3),
+      //animationDuration: Duration(milliseconds: 100),
+    )..show(context);
+  }
+
+  void _checkPIN() {
+    var pin = _pinPutController.value.text;
+
+    if (pin.length == 0) {
+      _displayFlushbar("No values inputted into PIN");
+    } else if (pin.length != 4) {
+      _displayFlushbar("Please fill in your PIN");
+    } else {
+      auth.verifyPin(pin: pin, context: context);
+    }
+  }
 
   BoxDecoration get _pinPutDecoration {
     return BoxDecoration(
@@ -54,9 +79,6 @@ class AuthScreenState extends State<AuthScreen> {
                   padding: EdgeInsets.all(20),
                   child: PinPut(
                     fieldsCount: 4,
-                    onSubmit: (String pin) {
-                      submittedPin = pin;
-                    },
                     focusNode: _pinPutFocusNode,
                     controller: _pinPutController,
                     submittedFieldDecoration: _pinPutDecoration.copyWith(
@@ -82,7 +104,7 @@ class AuthScreenState extends State<AuthScreen> {
                         style: TextStyle(fontSize: 20),
                       ),
                     ),
-                    onPressed: () {}),
+                    onPressed: _checkPIN),
                 SizedBox(
                   height: 30,
                 ),

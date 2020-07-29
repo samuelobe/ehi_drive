@@ -25,41 +25,33 @@ class CreatePinScreenState extends State<CreatePinScreen> {
     );
   }
 
+  void _displayFlushbar(String message){
+    Flushbar(
+        margin: EdgeInsets.only(bottom: 5),
+        maxWidth: MediaQuery.of(context).size.width * 0.95,
+        flushbarStyle: FlushbarStyle.FLOATING,
+        borderRadius: 8,
+        flushbarPosition: FlushbarPosition.TOP,
+        message: message,
+        isDismissible: true,
+        duration: Duration(seconds: 3),
+        //animationDuration: Duration(milliseconds: 100),
+      )..show(context);
+  }
+
   void createPin() async {
     String firstPin = _pinPutController1.value.text;
     String secondPin = _pinPutController2.value.text;
     var text;
-    if ((firstPin == "" || secondPin == "") ||
-        (firstPin.length < 4 || secondPin.length < 4)) {
+    if (firstPin.length < 4 || secondPin.length < 4) {
       text = "Please fill out both pin fields";
-      Flushbar(
-        margin: EdgeInsets.only(bottom: 5),
-        maxWidth: MediaQuery.of(context).size.width * 0.95,
-        flushbarStyle: FlushbarStyle.FLOATING,
-        borderRadius: 8,
-        flushbarPosition: FlushbarPosition.TOP,
-        message: text,
-        isDismissible: true,
-        duration: Duration(seconds: 3),
-        //animationDuration: Duration(milliseconds: 100),
-      )..show(context);
+      _displayFlushbar(text);
     } else if (firstPin == secondPin) {
-      // auth.createPIN(user: widget.user, pin: firstPin);
-      // auth.authSignUp(user: widget.user, context: context);
-      // prefs.setStringList(widget.user.email, [widget.user.password, ""]);
+      auth.registerDevice(
+          pin: firstPin, userID: widget.user.username, context: context);
     } else {
       text = "Inputted PINs are not the same";
-      Flushbar(
-        margin: EdgeInsets.only(bottom: 5),
-        maxWidth: MediaQuery.of(context).size.width * 0.95,
-        flushbarStyle: FlushbarStyle.FLOATING,
-        borderRadius: 8,
-        flushbarPosition: FlushbarPosition.TOP,
-        message: text,
-        isDismissible: true,
-        duration: Duration(seconds: 3),
-        //animationDuration: Duration(milliseconds: 100),
-      )..show(context);
+      _displayFlushbar(text);
     }
   }
 
