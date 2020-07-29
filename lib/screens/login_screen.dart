@@ -32,95 +32,104 @@ class _LoginScreenState extends State<LoginScreen> {
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
         },
-        child: Form(
-          key: _formkey,
-          child: Center(
-            child: Container(
-              padding: EdgeInsets.all(25),
-              child: ListView(
-                physics: ClampingScrollPhysics(),
-                shrinkWrap: true,
-                children: <Widget>[
-                  Image.asset(
-                    "assets/ehidrive-logo.png",
-                    height: MediaQuery.of(context).size.height * 0.20,
-                  ),
-                  SizedBox(
-                    height: 70,
-                  ),
-                  TextFormField(
-                    maxLength: 10,
-                    decoration: InputDecoration(
-                      labelText: "Username",
-                      counterText: "",
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(25.0),
-                        borderSide: BorderSide(),
-                      ),
-                      //fillColor: Colors.green
+        child: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                Colors.white12,
+                Colors.black12,
+                Colors.black12,
+                Colors.black38
+              ])),
+          child: Form(
+            key: _formkey,
+            child: Center(
+              child: Container(
+                padding: EdgeInsets.all(25),
+                child: ListView(
+                  physics: ClampingScrollPhysics(),
+                  shrinkWrap: true,
+                  children: <Widget>[
+                    Image.asset(
+                      "assets/ehidrive-logo.png",
+                      height: MediaQuery.of(context).size.height * 0.20,
                     ),
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (input) {
-                      var output;
-                      if (input.isEmpty) {
-                        output = "Please type a username";
-                      }
-                      return output;
-                    },
-                    onSaved: (input) => username = input.trim(),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: "Password",
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(25.0),
-                        borderSide: BorderSide(),
-                      ),
-                      //fillColor: Colors.green
+                    SizedBox(
+                      height: 60,
                     ),
-                    keyboardType: TextInputType.visiblePassword,
-                    validator: (input) {
-                      var output;
-                      if (input.isEmpty) {
-                        output = "Please type a password";
-                      }
-                      return output;
-                    },
-                    onSaved: (input) => password = input.trim(),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      RaisedButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(14.0),
-                          child: Text(
-                            "Sign In",
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
-                        onPressed: signIn,
+                    SizedBox(
+                      height: 5,
+                    ),
+                    TextFormField(
+                      maxLength: 10,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.person),
+                        labelText: "Username",
+                        counterText: "",
+                        fillColor: Colors.white,
+                        // border: OutlineInputBorder(
+                        //   borderRadius: BorderRadius.circular(10.0),
+                        //   borderSide: BorderSide(),
+                        // ),
                       ),
-                    ],
-                  )
-                ],
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (input) {
+                        var output;
+                        if (input.isEmpty) {
+                          output = "Please type in your username";
+                        }
+                        return output;
+                      },
+                      onSaved: (input) => username = input.trim(),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.lock),
+                        labelText: "Password",
+                        fillColor: Colors.white,
+                        // border: OutlineInputBorder(
+                        //   borderRadius: BorderRadius.circular(10.0),
+                        //   borderSide: BorderSide(),
+                        // ),
+                      ),
+                      keyboardType: TextInputType.visiblePassword,
+                      validator: (input) {
+                        var output;
+                        if (input.isEmpty) {
+                          output = "Please type in your password";
+                        }
+                        return output;
+                      },
+                      onSaved: (input) => password = input.trim(),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    RaisedButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(13.0),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(14.0),
+                        child: Text(
+                          "Sign In",
+                          style: TextStyle(fontSize: 22),
+                        ),
+                      ),
+                      onPressed: signIn,
+                    )
+                  ],
+                ),
               ),
             ),
           ),
         ),
       ),
-      backgroundColor: const Color(0xfffdfeff),
     );
   }
 }

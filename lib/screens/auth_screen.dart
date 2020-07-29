@@ -35,7 +35,7 @@ class AuthScreenState extends State<AuthScreen> {
     if (pin.length == 0) {
       _displayFlushbar("No values inputted into PIN");
     } else if (pin.length != 4) {
-      _displayFlushbar("Please fill in your PIN");
+      _displayFlushbar("Please type in your PIN");
     } else {
       auth.verifyPin(pin: pin, context: context);
     }
@@ -72,7 +72,7 @@ class AuthScreenState extends State<AuthScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text("Type in your pin"),
+                Text("Type in your pin", style: TextStyle(fontSize: 30),),
                 Container(
                   color: Colors.white,
                   margin: EdgeInsets.all(20),
@@ -101,7 +101,7 @@ class AuthScreenState extends State<AuthScreen> {
                       padding: const EdgeInsets.all(14.0),
                       child: Text(
                         "Sign In",
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(fontSize: 25),
                       ),
                     ),
                     onPressed: _checkPIN),
