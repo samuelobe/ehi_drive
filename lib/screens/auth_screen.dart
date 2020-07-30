@@ -72,7 +72,10 @@ class AuthScreenState extends State<AuthScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text("Type in your pin", style: TextStyle(fontSize: 30),),
+                Text(
+                  "Type in your pin",
+                  style: TextStyle(fontSize: 30),
+                ),
                 Container(
                   color: Colors.white,
                   margin: EdgeInsets.all(20),

@@ -25,18 +25,18 @@ class CreatePinScreenState extends State<CreatePinScreen> {
     );
   }
 
-  void _displayFlushbar(String message){
+  void _displayFlushbar(String message) {
     Flushbar(
-        margin: EdgeInsets.only(bottom: 5),
-        maxWidth: MediaQuery.of(context).size.width * 0.95,
-        flushbarStyle: FlushbarStyle.FLOATING,
-        borderRadius: 8,
-        flushbarPosition: FlushbarPosition.TOP,
-        message: message,
-        isDismissible: true,
-        duration: Duration(seconds: 3),
-        //animationDuration: Duration(milliseconds: 100),
-      )..show(context);
+      margin: EdgeInsets.only(bottom: 5),
+      maxWidth: MediaQuery.of(context).size.width * 0.95,
+      flushbarStyle: FlushbarStyle.FLOATING,
+      borderRadius: 8,
+      flushbarPosition: FlushbarPosition.TOP,
+      message: message,
+      isDismissible: true,
+      duration: Duration(seconds: 3),
+      //animationDuration: Duration(milliseconds: 100),
+    )..show(context);
   }
 
   void createPin() async {
