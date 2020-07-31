@@ -5,6 +5,7 @@ import 'package:ehidrive/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:device_info/device_info.dart';
+import 'package:ehidrive/util/constants.dart' as constants;
 
 class SOAP {
   final String apiKey = "B73C9433-A251-40A5-B60C-A8EA5D35E79F";
@@ -51,7 +52,7 @@ class SOAP {
 <VerifyDevice_1_2_2 xmlns="http://emr.ehiconnect.com/">
   <sApikey>$apiKey</sApikey>
   <sDeviceId>$deviceID</sDeviceId>
-  <sAppVersion>"1.0.0"</sAppVersion>
+  <sAppVersion>${constants.kAppVersion}</sAppVersion>
   <sRegisterId>123456</sRegisterId> 
 </VerifyDevice_1_2_2>""";
 
@@ -75,16 +76,18 @@ class SOAP {
     var deviceID = await _getId();
     http.Response response;
     var body = """
-<RegisterDevice xmlns="http://emr.ehiconnect.com/">
+<RegisterDevice2 xmlns="http://emr.ehiconnect.com/">
   <sApikey>$apiKey</sApikey>
   <sUserId>$userID</sUserId>
   <sDeviceId>$deviceID</sDeviceId>
   <sRegisterId>123456</sRegisterId>
   <sPin>$pin</sPin>
-</RegisterDevice>""";
+  <sPlatForm>$deviceType</sPlatForm>
+  <sAppVersion>${constants.kAppVersion}</sAppVersion>
+</RegisterDevice2>""";
 
     var requestBody = _createRequestBody(body);
-    var headers = _createHeaders("http://emr.ehiconnect.com/RegisterDevice");
+    var headers = _createHeaders("http://emr.ehiconnect.com/RegisterDevice2");
 
     response = await http.post(
       apiURL,
@@ -99,7 +102,7 @@ class SOAP {
     String username = user.username;
     String password = user.password;
     String deviceID = await _getId();
-    String systemData = "$deviceID-$deviceType-1.0.0";
+    String systemData = "$deviceID-$deviceType-${constants.kAppVersion}";
     var body = """
 <VerifyUser xmlns="http://emr.ehiconnect.com/">
   <sApikey>$apiKey</sApikey>
@@ -118,6 +121,47 @@ class SOAP {
       body: utf8.encode(requestBody),
     );
     print(deviceID);
+    return response;
+  }
+
+  Future<http.Response> postVerifyPin({@required String pin}) async {
+    String deviceID = await _getId();
+    var body = """
+<VerifyPin3 xmlns="http://emr.ehiconnect.com/">
+      <sApikey>$apiKey</sApikey>
+      <sDeviceId>$deviceID</sDeviceId>
+      <sPin>$pin</sPin>
+</VerifyPin3>""";
+
+    var requestBody = _createRequestBody(body);
+    var headers = _createHeaders("http://emr.ehiconnect.com/VerifyPin3");
+    http.Response response = await http.post(
+      apiURL,
+      headers: headers,
+      body: utf8.encode(requestBody),
+    );
+
+    return response;
+  }
+
+  Future<http.Response> postUnregisterDevice() async {
+    var deviceID = await _getId();
+    http.Response response;
+    var body = """
+<UnregisterDevice xmlns="http://emr.ehiconnect.com/">
+      <sApikey>$apiKey</sApikey>
+      <sDeviceId>$deviceID</sDeviceId>
+</UnregisterDevice>""";
+
+    var requestBody = _createRequestBody(body);
+    var headers = _createHeaders("http://emr.ehiconnect.com/UnregisterDevice");
+
+    response = await http.post(
+      apiURL,
+      headers: headers,
+      body: utf8.encode(requestBody),
+    );
+
     return response;
   }
 }

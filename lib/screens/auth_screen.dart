@@ -96,18 +96,36 @@ class AuthScreenState extends State<AuthScreen> {
                   ),
                 ),
                 SizedBox(height: 30),
-                RaisedButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(14.0),
-                      child: Text(
-                        "Sign In",
-                        style: TextStyle(fontSize: 25),
-                      ),
-                    ),
-                    onPressed: _checkPIN),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    RaisedButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(14.0),
+                          child: Text(
+                            "Sign In",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
+                        onPressed: _checkPIN),
+                    RaisedButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(14.0),
+                          child: Text(
+                            "Un-Register",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
+                        onPressed: () =>
+                            auth.unregisterDevice(context: context)),
+                  ],
+                ),
                 SizedBox(
                   height: 30,
                 ),

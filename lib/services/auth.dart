@@ -129,6 +129,37 @@ class Auth {
     }
   }
 
+  unregisterDevice({@required BuildContext context}) async {
+    bool success;
+    final prefs = await SharedPreferences.getInstance();
+
+    try {
+      http.Response response = await soap.postUnregisterDevice();
+
+      if (response.statusCode == 200) {
+        var document = XmlDocument.parse(response.body);
+        print(document.toXmlString(pretty: true, indent: '\t'));
+        success = _getElement(document, 'success') == 'true';
+        if (success) {
+          prefs.setString("pin", "");
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => LoginScreen(),
+              ));
+        } else {
+          _showFlushbar(context, "Unregistration Failed");
+        }
+        print('Device Unregistered? $success');
+      } else {
+        _showFlushbar(context, "Network Error");
+      }
+    } catch (e) {
+      _showFlushbar(context, e.toString());
+      print(e);
+    }
+  }
+
   verifyUser({User user, BuildContext context}) async {
     bool success;
     String errorcode;
@@ -150,11 +181,21 @@ class Auth {
         errorcode = _getElement(document, 'errorcode');
         message = _getElement(document, 'message');
 
+        if (success == false && errorcode == 'VU002') {
+          print("Errorcode: VU002. Attempting to login again...");
+          response = await soap.postVerifyUser(user: user);
+          document = XmlDocument.parse(response.body);
+          success = _getElement(document, 'success') == 'true';
+          errorcode = _getElement(document, 'errorcode');
+          message = _getElement(document, 'message');
+        }
+
         print("Success: $success, Errorcode: $errorcode, Message: $message");
 
         if (success) {
-          var pinCreated = prefs.getString('pin') == null;
-          if (!pinCreated) {
+          var pinCreated = prefs.getString('pin') != null && prefs.getString('pin') != '';
+          print(prefs.getString('pin'));
+          if (pinCreated) {
             print('Going to Menu Screen');
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => MenuScreen()));
@@ -182,75 +223,47 @@ class Auth {
   }
 
   verifyPin({@required String pin, @required BuildContext context}) async {
-    final prefs = await SharedPreferences.getInstance();
+    bool success;
+    String errorcode;
+    String message;
 
-    var storedPin = prefs.getString('pin');
+    try {
+      http.Response response = await soap.postVerifyPin(pin: pin);
+      var statusCode = response.statusCode;
 
-    if (pin == storedPin) {
-      print('Pin Accepted!');
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => MenuScreen()));
-    } else {
-      _showFlushbar(context, "Incorrect PIN");
+      if (statusCode == 200) {
+        var document = XmlDocument.parse(response.body);
+
+        print(document.toXmlString(pretty: true, indent: '\t'));
+
+        success = _getElement(document, 'success') == 'true';
+        errorcode = _getElement(document, 'errorcode');
+        message = _getElement(document, 'message');
+
+        print("Success: $success, Errorcode: $errorcode, Message: $message");
+
+        if (success) {
+          print("Pin Accepted... Going to Pin Screen");
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => MenuScreen()));
+        } else {
+          _showFlushbar(context, 'Incorrect PIN');
+        }
+      } else {
+        message = 'Network Error: $statusCode';
+        _showFlushbar(context, message);
+      }
+    } catch (e) {
+      print(e);
+      _showFlushbar(context, e.toString());
     }
+
+    // if (pin == storedPin) {
+    //   print('Pin Accepted!');
+    //   Navigator.push(
+    //       context, MaterialPageRoute(builder: (context) => MenuScreen()));
+    // } else {
+    //   _showFlushbar(context, "Incorrect PIN");
+    // }
   }
-
-//   verifyPin({String pin, BuildContext context}) async {
-//     bool success;
-//     String errorcode;
-//     String message;
-//     String deviceID = await _getId();
-
-//     var requestBody = """
-// <?xml version="1.0" encoding="utf-8"?>
-// <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-//   <soap:Body>
-//     <VerifyPin xmlns="http://emr.ehiconnect.com/">
-//       <sApikey>$apiKey</sApikey>
-//       <sDeviceId>$deviceID</sDeviceId>
-//       <sPin>$pin</sPin>
-//     </VerifyPin>
-//   </soap:Body>
-// </soap:Envelope>""";
-
-//     try {
-//       http.Response response = await http.post(
-//         apiURL,
-//         headers: {
-//           "Content-Type": "text/xml; charset=utf-8",
-//           "Host": "ehix.ehiconnect.com",
-//           "SOAPAction": "http://emr.ehiconnect.com/VerifyPin"
-//         },
-//         body: utf8.encode(requestBody),
-//       );
-//       var statusCode = response.statusCode;
-
-//       if (statusCode == 200) {
-//         var document = XmlDocument.parse(response.body);
-
-//         print(document.toXmlString(pretty: true, indent: '\t'));
-//         print(deviceID);
-
-//         success = _getElement(document, 'success') == 'true';
-//         errorcode = _getElement(document, 'errorcode');
-//         message = _getElement(document, 'message');
-
-//         print("Success: $success, Errorcode: $errorcode, Message: $message");
-
-//         if (success) {
-//           print("Going to Pin Screen");
-//           Navigator.push(
-//               context, MaterialPageRoute(builder: (context) => MenuScreen()));
-//         } else {
-//           _showFlushbar(context, message);
-//         }
-//       } else {
-//         message = 'Network Error: $statusCode';
-//         _showFlushbar(context, message);
-//       }
-//     } catch (e) {
-//       print(e);
-//       _showFlushbar(context, e.toString());
-//     }
-//   }
 }
