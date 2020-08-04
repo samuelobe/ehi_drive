@@ -30,8 +30,8 @@ class _MyAppState extends State<MyApp> {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: SplashScreen(
-        loaderColor: const Color(0xfffdfeff),
-        backgroundColor: const Color(0xfffdfeff),
+        loaderColor: const Color(0xfff67041),
+        backgroundColor: Colors.black12,
         seconds: 5,
         photoSize: 100,
         navigateAfterSeconds: widget.screen,

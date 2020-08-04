@@ -1,7 +1,7 @@
 import 'soap.dart';
 import 'package:ehidrive/models/user.dart';
 import 'package:ehidrive/screens/alert_screen.dart';
-import 'package:ehidrive/screens/auth_screen.dart';
+import 'package:ehidrive/screens/pin_screen.dart';
 import 'package:ehidrive/screens/create_pin_screen.dart';
 import 'package:ehidrive/screens/login_screen.dart';
 import 'package:ehidrive/screens/menu_screen.dart';
@@ -82,14 +82,14 @@ class Auth {
       } else {
         print("Going to Alert Screen");
         return AlertScreen(
-          message: "Error $statusCode",
+          message: "Error: $statusCode. Please try again",
         );
       }
     } catch (e) {
       print(e);
       print("Going to Alert Screen");
       return AlertScreen(
-        message: e.toString(),
+        message: "Error: Device could not be verified due to a network issue. Please try again",
       );
     }
   }
@@ -131,6 +131,7 @@ class Auth {
 
   unregisterDevice({@required BuildContext context}) async {
     bool success;
+    String message;
     final prefs = await SharedPreferences.getInstance();
 
     try {
@@ -140,6 +141,7 @@ class Auth {
         var document = XmlDocument.parse(response.body);
         print(document.toXmlString(pretty: true, indent: '\t'));
         success = _getElement(document, 'success') == 'true';
+        message = _getElement(document, 'message');
         if (success) {
           prefs.setString("pin", "");
           Navigator.push(
@@ -148,7 +150,7 @@ class Auth {
                 builder: (context) => LoginScreen(),
               ));
         } else {
-          _showFlushbar(context, "Unregistration Failed");
+          _showFlushbar(context, message);
         }
         print('Device Unregistered? $success');
       } else {

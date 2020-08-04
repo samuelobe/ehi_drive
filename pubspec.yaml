@@ -8,11 +8,12 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  pin_entry_text_field: ^0.1.4
   flushbar: ^1.10.4
   pinput: ^0.2.4
   device_info: ^0.4.2+4
   shared_preferences: ^0.5.8
-  xml: ^4.3.0
+  xml: ^4.1.0
   http: ^0.12.2
   splashscreen: ^1.2.0
   flutter:
@@ -21,8 +22,8 @@ dependencies:
   cupertino_icons: ^0.1.3
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+  # flutter_test:
+  #   sdk: flutter
 
 flutter:
 
