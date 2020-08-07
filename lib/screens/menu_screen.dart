@@ -29,29 +29,19 @@ class _MenuScreenState extends State<MenuScreen> {
       Future.delayed(const Duration(milliseconds: 250), () {
         setState(() {
           _sharedFiles = value;
-          print(_sharedFiles[0].path);
           _path = (_sharedFiles?.map((f) => f.path)?.join(",") ?? "");
           print(
               "Shared:" + (_sharedFiles?.map((f) => f.path)?.join(",") ?? ""));
-          if (_path != null && _path != "") {
+          if (_sharedFiles != null) {
             Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => ShareScreen(
-                    imagePath: _path,
+                    filePaths: _sharedFiles,
                   ),
                 ));
           }
 
-          // if (_path != null && _path != "") {
-          //   showBarModalBottomSheet(
-          //     expand: true,
-          //     context: context,
-          //     backgroundColor: Colors.transparent,
-          //     builder: (context, scrollController) => ModalInsideModal(
-          //         imagePath: _path, scrollController: scrollController),
-          //   );
-          // }
         });
       });
     }, onError: (err) {
@@ -66,25 +56,15 @@ class _MenuScreenState extends State<MenuScreen> {
           _path = (_sharedFiles?.map((f) => f.path)?.join(",") ?? "");
           print(
               "Shared:" + (_sharedFiles?.map((f) => f.path)?.join(",") ?? ""));
-          if (_path != null && _path != "") {
+          if (_sharedFiles != null) {
             Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => ShareScreen(
-                    imagePath: _path,
+                    filePaths: _sharedFiles,
                   ),
                 ));
           }
-
-          // if (_path != null && _path != "") {
-          //   showBarModalBottomSheet(
-          //     expand: true,
-          //     context: context,
-          //     backgroundColor: Colors.transparent,
-          //     builder: (context, scrollController) => ModalInsideModal(
-          //         imagePath: _path, scrollController: scrollController),
-          //   );
-          // }
         });
       });
     });
