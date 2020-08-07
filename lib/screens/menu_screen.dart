@@ -1,8 +1,7 @@
 import 'dart:async';
 
-import 'package:ehidrive/widgets/modal_inside_modal.dart';
+import 'package:ehidrive/screens/share_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 
 class MenuScreen extends StatefulWidget {
@@ -18,6 +17,7 @@ class _MenuScreenState extends State<MenuScreen> {
   String _sharedText;
   String _path;
   static const textStyleBold = const TextStyle(fontWeight: FontWeight.bold);
+  bool filePushed = false;
 
   @override
   void initState() {
@@ -29,18 +29,29 @@ class _MenuScreenState extends State<MenuScreen> {
       Future.delayed(const Duration(milliseconds: 250), () {
         setState(() {
           _sharedFiles = value;
+          print(_sharedFiles[0].path);
           _path = (_sharedFiles?.map((f) => f.path)?.join(",") ?? "");
           print(
               "Shared:" + (_sharedFiles?.map((f) => f.path)?.join(",") ?? ""));
           if (_path != null && _path != "") {
-            showBarModalBottomSheet(
-              expand: true,
-              context: context,
-              backgroundColor: Colors.transparent,
-              builder: (context, scrollController) => ModalInsideModal(
-                  imagePath: _path, scrollController: scrollController),
-            );
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ShareScreen(
+                    imagePath: _path,
+                  ),
+                ));
           }
+
+          // if (_path != null && _path != "") {
+          //   showBarModalBottomSheet(
+          //     expand: true,
+          //     context: context,
+          //     backgroundColor: Colors.transparent,
+          //     builder: (context, scrollController) => ModalInsideModal(
+          //         imagePath: _path, scrollController: scrollController),
+          //   );
+          // }
         });
       });
     }, onError: (err) {
@@ -56,14 +67,24 @@ class _MenuScreenState extends State<MenuScreen> {
           print(
               "Shared:" + (_sharedFiles?.map((f) => f.path)?.join(",") ?? ""));
           if (_path != null && _path != "") {
-            showBarModalBottomSheet(
-              expand: true,
-              context: context,
-              backgroundColor: Colors.transparent,
-              builder: (context, scrollController) => ModalInsideModal(
-                  imagePath: _path, scrollController: scrollController),
-            );
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ShareScreen(
+                    imagePath: _path,
+                  ),
+                ));
           }
+
+          // if (_path != null && _path != "") {
+          //   showBarModalBottomSheet(
+          //     expand: true,
+          //     context: context,
+          //     backgroundColor: Colors.transparent,
+          //     builder: (context, scrollController) => ModalInsideModal(
+          //         imagePath: _path, scrollController: scrollController),
+          //   );
+          // }
         });
       });
     });
