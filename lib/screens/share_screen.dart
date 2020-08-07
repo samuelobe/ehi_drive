@@ -18,8 +18,11 @@ class _ShareScreenState extends State<ShareScreen> {
     for (var i = 0; i < paths.length; i++) {
       if (paths[i].path != null &&
           paths[i].path != "" &&
-          (paths[i].path.contains(".jpg",) ||
+          (paths[i].path.contains(
+                    ".jpg",
+                  ) ||
               paths[i].path.contains(".jpeg") ||
+              paths[i].path.contains(".gif") ||
               paths[i].path.contains(".png"))) {
         imageList.add(Image.file(File(paths[i].path)));
       }

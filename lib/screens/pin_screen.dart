@@ -3,8 +3,6 @@ import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 
-import 'login_screen.dart';
-
 class AuthScreen extends StatefulWidget {
   @override
   AuthScreenState createState() => AuthScreenState();
@@ -43,7 +41,7 @@ class AuthScreenState extends State<AuthScreen> {
 
   BoxDecoration get _pinPutDecoration {
     return BoxDecoration(
-      border: Border.all(color: Colors.blue),
+      border: Border.all(color: const Color(0xfff67041)),
       borderRadius: BorderRadius.circular(15),
     );
   }
@@ -51,36 +49,22 @@ class AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("PIN"),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.home),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => LoginScreen(),
-                    ));
-              },
-            )
-          ],
-        ),
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFFebebeb),
         body: Center(
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(
-                  "Type in your pin",
+                  "Enter Pin",
                   style: TextStyle(fontSize: 30),
                 ),
                 Container(
-                  color: Colors.white,
                   margin: EdgeInsets.all(20),
                   padding: EdgeInsets.all(20),
                   child: PinPut(
+                    textStyle:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                     fieldsCount: 4,
                     focusNode: _pinPutFocusNode,
                     controller: _pinPutController,
@@ -90,7 +74,7 @@ class AuthScreenState extends State<AuthScreen> {
                     followingFieldDecoration: _pinPutDecoration.copyWith(
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(
-                        color: Colors.blue,
+                        color: const Color(0xfff67041),
                       ),
                     ),
                   ),

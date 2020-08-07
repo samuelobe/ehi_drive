@@ -26,7 +26,7 @@ class _MenuScreenState extends State<MenuScreen> {
     // For sharing images coming from outside the app while the app is in the memory
     _intentDataStreamSubscription = ReceiveSharingIntent.getMediaStream()
         .listen((List<SharedMediaFile> value) {
-      Future.delayed(const Duration(milliseconds: 250), () {
+      Future.delayed(const Duration(milliseconds: 50), () {
         setState(() {
           _sharedFiles = value;
           _path = (_sharedFiles?.map((f) => f.path)?.join(",") ?? "");
@@ -41,7 +41,6 @@ class _MenuScreenState extends State<MenuScreen> {
                   ),
                 ));
           }
-
         });
       });
     }, onError: (err) {
@@ -50,7 +49,7 @@ class _MenuScreenState extends State<MenuScreen> {
 
     // For sharing images coming from outside the app while the app is closed
     ReceiveSharingIntent.getInitialMedia().then((List<SharedMediaFile> value) {
-      Future.delayed(const Duration(milliseconds: 250), () {
+      Future.delayed(const Duration(milliseconds: 50), () {
         setState(() {
           _sharedFiles = value;
           _path = (_sharedFiles?.map((f) => f.path)?.join(",") ?? "");
@@ -100,6 +99,7 @@ class _MenuScreenState extends State<MenuScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.grey,
         title: Text('Menu Screen'),
         automaticallyImplyLeading: false,
       ),

@@ -20,7 +20,7 @@ class CreatePinScreenState extends State<CreatePinScreen> {
 
   BoxDecoration get _pinPutDecoration {
     return BoxDecoration(
-      border: Border.all(color: Colors.blue),
+      border: Border.all(color: Color(0xfff67041), width: 2),
       borderRadius: BorderRadius.circular(15),
     );
   }
@@ -58,78 +58,79 @@ class CreatePinScreenState extends State<CreatePinScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Create PIN"),
-      ),
-      backgroundColor: Colors.white,
-      body: Builder(
-        builder: (context) {
-          return Center(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Text("Create your pin"),
-                  Container(
-                    color: Colors.white,
-                    margin: EdgeInsets.all(20),
-                    padding: EdgeInsets.all(20),
-                    child: PinPut(
-                      fieldsCount: 4,
-                      focusNode: _pinPutFocusNode1,
-                      controller: _pinPutController1,
-                      submittedFieldDecoration: _pinPutDecoration.copyWith(
-                          borderRadius: BorderRadius.circular(20)),
-                      selectedFieldDecoration: _pinPutDecoration,
-                      followingFieldDecoration: _pinPutDecoration.copyWith(
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          color: Colors.blue,
-                        ),
+        appBar: AppBar(
+          backgroundColor: Colors.grey,
+        ),
+        backgroundColor: Color(0xFFebebeb),
+        body: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text("Create your pin"),
+                Container(
+                  margin: EdgeInsets.all(20),
+                  padding: EdgeInsets.all(20),
+                  child: PinPut(
+                    
+                    textStyle:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                    fieldsCount: 4,
+                    focusNode: _pinPutFocusNode1,
+                    controller: _pinPutController1,
+                    submittedFieldDecoration: _pinPutDecoration.copyWith(
+                        borderRadius: BorderRadius.circular(20)),
+                    selectedFieldDecoration: _pinPutDecoration,
+                    followingFieldDecoration: _pinPutDecoration.copyWith(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(
+                        width: 2,
+                        color: Color(0xfff67041),
                       ),
                     ),
                   ),
-                  SizedBox(height: 30),
-                  Text("Verify your pin"),
-                  Container(
-                    color: Colors.white,
-                    margin: EdgeInsets.all(20),
-                    padding: EdgeInsets.all(20),
-                    child: PinPut(
-                      fieldsCount: 4,
-                      focusNode: _pinPutFocusNode2,
-                      controller: _pinPutController2,
-                      submittedFieldDecoration: _pinPutDecoration.copyWith(
-                          borderRadius: BorderRadius.circular(20)),
-                      selectedFieldDecoration: _pinPutDecoration,
-                      followingFieldDecoration: _pinPutDecoration.copyWith(
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          color: Colors.blue,
-                        ),
+                ),
+                SizedBox(height: 30),
+                Text("Verify your pin"),
+                Container(
+                  margin: EdgeInsets.all(20),
+                  padding: EdgeInsets.all(20),
+                  child: PinPut(
+                    textStyle:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                    fieldsCount: 4,
+                    focusNode: _pinPutFocusNode2,
+                    controller: _pinPutController2,
+                    submittedFieldDecoration: _pinPutDecoration.copyWith(
+                        borderRadius: BorderRadius.circular(20)),
+                    selectedFieldDecoration: _pinPutDecoration,
+                    followingFieldDecoration: _pinPutDecoration.copyWith(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(
+                        width: 2,
+                        color: Color(0xfff67041),
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
-                  RaisedButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(14.0),
-                      child: Text(
-                        "Create PIN",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ),
-                    onPressed: createPin,
+                ),
+                SizedBox(height: 30),
+                RaisedButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
                   ),
-                ],
-              ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(14.0),
+                    child: Text(
+                      "Create PIN",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  onPressed: createPin,
+                ),
+                SizedBox(height: 10,)
+              ],
             ),
-          );
-        },
-      ),
-    );
+          ),
+        ));
   }
 }

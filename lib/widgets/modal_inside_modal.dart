@@ -18,7 +18,9 @@ class ModalInsideModal extends StatelessWidget {
       body: Center(
         child: imagePath != null && imagePath != ""
             ? Image.file(File(imagePath))
-            : Container(color: Colors.red,),
+            : Container(
+                color: Colors.red,
+              ),
       ),
     );
   }

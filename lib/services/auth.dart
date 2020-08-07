@@ -89,7 +89,8 @@ class Auth {
       print(e);
       print("Going to Alert Screen");
       return AlertScreen(
-        message: "Error: Device could not be verified due to a network issue. Please try again",
+        message:
+            "Error: Device could not be verified due to a network issue. Please try again",
       );
     }
   }
@@ -195,7 +196,8 @@ class Auth {
         print("Success: $success, Errorcode: $errorcode, Message: $message");
 
         if (success) {
-          var pinCreated = prefs.getString('pin') != null && prefs.getString('pin') != '';
+          var pinCreated =
+              prefs.getString('pin') != null && prefs.getString('pin') != '';
           print(prefs.getString('pin'));
           if (pinCreated) {
             print('Going to Menu Screen');
