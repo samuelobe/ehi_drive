@@ -8,6 +8,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  flutter_bloc: ^6.0.1
   modal_bottom_sheet: ^0.2.0+1
   receive_sharing_intent: ^1.4.0+2
   image_picker: ^0.6.7+4
