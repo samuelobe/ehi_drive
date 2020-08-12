@@ -14,78 +14,31 @@ class AuthScreenState extends State<AuthScreen> {
 
   @override
   Widget build(BuildContext context) {
-    BlocBuilder<PinCubit, String>(
-      builder: (context, state) {
-        return Container();
-      },
-    );
-    return Scaffold(
-        backgroundColor: Color(0xFFebebeb),
-        body: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  "Enter Pin",
-                  style: TextStyle(fontSize: 30),
+    return BlocProvider(
+      create: (context) => PinCubit(),
+      child: Scaffold(
+          backgroundColor: Color(0xFFebebeb),
+          body: BlocBuilder<PinCubit, String>(
+            builder: (context, state) {
+              return Center(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        "Enter Pin",
+                        style: TextStyle(fontSize: 30),
+                      ),
+                      Text(state),
+                      SizedBox(height: 30),
+                      Pin(),
+                    ],
+                  ),
                 ),
-                // Container(
-                //   margin: EdgeInsets.all(20),
-                //   padding: EdgeInsets.all(20),
-                //   child: PinPut(
-                //     textStyle:
-                //         TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                //     fieldsCount: 4,
-                //     focusNode: _pinPutFocusNode,
-                //     controller: _pinPutController,
-                //     submittedFieldDecoration: _pinPutDecoration.copyWith(
-                //         borderRadius: BorderRadius.circular(20)),
-                //     selectedFieldDecoration: _pinPutDecoration,
-                //     followingFieldDecoration: _pinPutDecoration.copyWith(
-                //       borderRadius: BorderRadius.circular(5),
-                //       border: Border.all(
-                //         color: const Color(0xfff67041),
-                //       ),
-                //     ),
-                //   ),
-                // ),
-                SizedBox(height: 30),
-                Pin(),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //   children: <Widget>[
-                //     RaisedButton(
-                //         shape: RoundedRectangleBorder(
-                //           borderRadius: BorderRadius.circular(18.0),
-                //         ),
-                //         child: Padding(
-                //           padding: const EdgeInsets.all(14.0),
-                //           child: Text(
-                //             "Sign In",
-                //             style: TextStyle(fontSize: 20),
-                //           ),
-                //         ),
-                //         onPressed: _checkPIN),
-                //     RaisedButton(
-                //         shape: RoundedRectangleBorder(
-                //           borderRadius: BorderRadius.circular(18.0),
-                //         ),
-                //         child: Padding(
-                //           padding: const EdgeInsets.all(14.0),
-                //           child: Text(
-                //             "Un-Register",
-                //             style: TextStyle(fontSize: 20),
-                //           ),
-                //         ),
-                //         onPressed: () =>
-                //             auth.unregisterDevice(context: context)),
-                //   ],
-                // ),
-              ],
-            ),
-          ),
-        ));
+              );
+            },
+          )),
+    );
   }
 }

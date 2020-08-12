@@ -1,13 +1,12 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 
 class PinCubit extends Cubit<String> {
-  int pinLength = 0;
   PinCubit() : super("");
 
-  void addNumber(value) {
-    if (pinLength <= 4) {
+  void addNumber({@required value}) {
+    if (state.length < 4) {
       emit(state + value);
     }
-    pinLength++;
   }
 }

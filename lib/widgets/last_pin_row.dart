@@ -1,3 +1,4 @@
+import 'package:ehidrive/widgets/pin_button.dart';
 import 'package:flutter/material.dart';
 
 class LastPinRow extends StatelessWidget {
@@ -12,13 +13,7 @@ class LastPinRow extends StatelessWidget {
           icon: Icon(Icons.cancel),
           onPressed: () {},
         ),
-        FlatButton(
-          child: Text(
-            '0',
-            style: TextStyle(fontSize: 40, color: Colors.black),
-          ),
-          onPressed: () {},
-        ),
+        PinButton(value: "0"),
         IconButton(
           icon: Icon(Icons.backspace),
           onPressed: () {},
