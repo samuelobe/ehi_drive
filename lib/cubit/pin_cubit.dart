@@ -9,4 +9,14 @@ class PinCubit extends Cubit<String> {
       emit(state + value);
     }
   }
+
+  void removeNumber() {
+    if (state.length > 0) {
+      emit(state.substring(0, state.length - 1));
+    }
+  }
+
+  void clearPin() {
+    emit("");
+  }
 }
