@@ -19,8 +19,8 @@ class PinIconButton extends StatelessWidget {
             children: [
               Container(child: icon),
               Container(
-                height: 100,
-                width: 100,
+                height: 110,
+                width: 110,
               )
             ],
           ),

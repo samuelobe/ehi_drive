@@ -44,7 +44,7 @@ class PinScreenState extends State<PinScreen> {
                         numActive: state.length,
                       ),
                       // Text(state),
-                      SizedBox(height: 70),
+                      SizedBox(height: 20),
                       Pin(),
                       SizedBox(height: 40),
                       Row(
