@@ -69,7 +69,7 @@ class Auth {
 
         if (success) {
           print("Going to Pin Screen");
-          return AuthScreen();
+          return PinScreen();
         } else if (!success && errorcode == 'VD002') {
           print("Going to Login Screen");
           return LoginScreen();

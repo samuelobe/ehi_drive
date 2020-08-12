@@ -11,11 +11,14 @@ class PinRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      
       children: [
-        PinButton(value: firstValue,),
+        PinButton(
+          value: firstValue,
+        ),
         PinButton(value: secondValue),
-        PinButton(value: thirdValue,),
+        PinButton(
+          value: thirdValue,
+        ),
       ],
     );
   }

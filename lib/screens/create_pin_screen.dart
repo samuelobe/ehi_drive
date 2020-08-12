@@ -72,7 +72,6 @@ class CreatePinScreenState extends State<CreatePinScreen> {
                   margin: EdgeInsets.all(20),
                   padding: EdgeInsets.all(20),
                   child: PinPut(
-                    
                     textStyle:
                         TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                     fieldsCount: 4,
@@ -127,7 +126,9 @@ class CreatePinScreenState extends State<CreatePinScreen> {
                   ),
                   onPressed: createPin,
                 ),
-                SizedBox(height: 10,)
+                SizedBox(
+                  height: 10,
+                )
               ],
             ),
           ),

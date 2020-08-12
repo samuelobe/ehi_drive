@@ -1,3 +1,1 @@
-class CustomTheme {
-
-}
+class CustomTheme {}

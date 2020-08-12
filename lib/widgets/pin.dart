@@ -14,15 +14,15 @@ class Pin extends StatelessWidget {
         children: [
           PinRow(firstValue: "1", secondValue: "2", thirdValue: "3"),
           SizedBox(
-            height: 30,
+            height: 50,
           ),
           PinRow(firstValue: "4", secondValue: "5", thirdValue: "6"),
           SizedBox(
-            height: 30,
+            height: 50,
           ),
           PinRow(firstValue: "7", secondValue: "8", thirdValue: "9"),
           SizedBox(
-            height: 30,
+            height: 50,
           ),
           LastPinRow()
         ],

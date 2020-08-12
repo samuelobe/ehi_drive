@@ -14,12 +14,15 @@ class PinButton extends StatelessWidget {
   Widget build(BuildContext context) {
     var bloc = context.bloc<PinCubit>();
 
-    return FlatButton(
-      child: Text(
-        value,
-        style: TextStyle(fontSize: fontSize, color: fontColor),
+    return InkWell(
+      enableFeedback: true,
+      onTap: () => bloc.addNumber(value: value),
+      child: Container(
+        child: Text(
+          value,
+          style: TextStyle(fontSize: fontSize, color: fontColor),
+        ),
       ),
-      onPressed: () => bloc.addNumber(value: value),
     );
   }
 }
