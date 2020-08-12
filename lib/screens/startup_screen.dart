@@ -12,7 +12,7 @@ class StartupScreen extends StatelessWidget {
       backgroundColor: const Color(0xFFebebeb),
       seconds: 5,
       photoSize: 100,
-      navigateAfterSeconds: StartupScreen(screen: screen),
+      navigateAfterSeconds: screen,
       image: Image.asset('assets/ehidrive-animation.gif'),
     );
   }

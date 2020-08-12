@@ -1,5 +1,5 @@
+import 'package:ehidrive/screens/startup_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:splashscreen/splashscreen.dart';
 
 import 'services/auth.dart';
 
@@ -30,14 +30,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: SplashScreen(
-        loaderColor: const Color(0xfff67041),
-        backgroundColor: Colors.black12,
-        seconds: 5,
-        photoSize: 100,
-        navigateAfterSeconds: widget.screen,
-        image: Image.asset('assets/ehidrive-animation.gif'),
-      ),
+      home: StartupScreen(screen: widget.screen,)
     );
   }
 }

@@ -1,8 +1,8 @@
+import 'package:ehidrive/cubit/pin_cubit.dart';
 import 'package:ehidrive/services/auth.dart';
 import 'package:ehidrive/widgets/pin.dart';
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:pinput/pin_put/pin_put.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -10,45 +10,15 @@ class AuthScreen extends StatefulWidget {
 }
 
 class AuthScreenState extends State<AuthScreen> {
-  final TextEditingController _pinPutController = TextEditingController();
-  final FocusNode _pinPutFocusNode = FocusNode();
   Auth auth = Auth();
-
-  void _displayFlushbar(String message) {
-    Flushbar(
-      margin: EdgeInsets.only(bottom: 5),
-      maxWidth: MediaQuery.of(context).size.width * 0.95,
-      flushbarStyle: FlushbarStyle.FLOATING,
-      borderRadius: 8,
-      flushbarPosition: FlushbarPosition.TOP,
-      message: message,
-      isDismissible: true,
-      duration: Duration(seconds: 3),
-      //animationDuration: Duration(milliseconds: 100),
-    )..show(context);
-  }
-
-  void _checkPIN() {
-    var pin = _pinPutController.value.text;
-
-    if (pin.length == 0) {
-      _displayFlushbar("No values inputted into PIN");
-    } else if (pin.length != 4) {
-      _displayFlushbar("Please type in your PIN");
-    } else {
-      auth.verifyPin(pin: pin, context: context);
-    }
-  }
-
-  BoxDecoration get _pinPutDecoration {
-    return BoxDecoration(
-      border: Border.all(color: const Color(0xfff67041)),
-      borderRadius: BorderRadius.circular(15),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
+    BlocBuilder<PinCubit, String>(
+      builder: (context, state) {
+        return Container();
+      },
+    );
     return Scaffold(
         backgroundColor: Color(0xFFebebeb),
         body: Center(
