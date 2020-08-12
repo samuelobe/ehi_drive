@@ -1,3 +1,6 @@
+import 'package:ehidrive/cubit/pin_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'soap.dart';
 import 'package:ehidrive/models/user.dart';
 import 'package:ehidrive/screens/alert_screen.dart';
@@ -230,6 +233,7 @@ class Auth {
     bool success;
     String errorcode;
     String message;
+    var bloc = context.bloc<PinCubit>();
 
     try {
       http.Response response = await soap.postVerifyPin(pin: pin);
@@ -253,6 +257,7 @@ class Auth {
         } else {
           _showFlushbar(context, 'Incorrect PIN');
         }
+        bloc.clearPin();
       } else {
         message = 'Network Error: $statusCode';
         _showFlushbar(context, message);

@@ -1,4 +1,4 @@
-import 'package:ehidrive/widgets/pin_button.dart';
+import 'package:ehidrive/widgets/pin/pin_button.dart';
 import 'package:flutter/material.dart';
 
 class PinRow extends StatelessWidget {
@@ -10,7 +10,7 @@ class PinRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         PinButton(
           value: firstValue,

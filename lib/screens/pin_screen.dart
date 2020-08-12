@@ -1,7 +1,7 @@
 import 'package:ehidrive/cubit/pin_cubit.dart';
 import 'package:ehidrive/services/auth.dart';
-import 'package:ehidrive/widgets/pin.dart';
-import 'package:ehidrive/widgets/pin_circles.dart';
+import 'package:ehidrive/widgets/pin/pin.dart';
+import 'package:ehidrive/widgets/pin/pin_circles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,7 +30,9 @@ class PinScreenState extends State<PinScreen> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      SizedBox(height: 40,),
+                      SizedBox(
+                        height: 40,
+                      ),
                       Text(
                         "Enter PIN",
                         style: TextStyle(fontSize: 30),

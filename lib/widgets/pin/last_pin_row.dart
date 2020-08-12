@@ -1,5 +1,6 @@
 import 'package:ehidrive/cubit/pin_cubit.dart';
-import 'package:ehidrive/widgets/pin_button.dart';
+import 'package:ehidrive/widgets/pin/pin_button.dart';
+import 'package:ehidrive/widgets/pin/pin_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,17 +13,14 @@ class LastPinRow extends StatelessWidget {
       builder: (context, state) {
         var bloc = context.bloc<PinCubit>();
         return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            IconButton(
-              icon: Icon(Icons.cancel),
-              onPressed: () => bloc.clearPin(),
-            ),
+            PinIconButton(
+                icon: Icon(Icons.cancel), onPressed: () => bloc.clearPin()),
             PinButton(value: "0"),
-            IconButton(
-              icon: Icon(Icons.backspace),
-              onPressed: () => bloc.removeNumber(),
-            )
+            PinIconButton(
+                icon: Icon(Icons.backspace),
+                onPressed: () => bloc.removeNumber()),
           ],
         );
       },

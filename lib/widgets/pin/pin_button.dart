@@ -17,11 +17,20 @@ class PinButton extends StatelessWidget {
     return InkWell(
       enableFeedback: true,
       onTap: () => bloc.addNumber(value: value),
-      child: Container(
-        child: Text(
-          value,
-          style: TextStyle(fontSize: fontSize, color: fontColor),
-        ),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Container(
+            child: Text(
+              value,
+              style: TextStyle(fontSize: fontSize, color: fontColor),
+            ),
+          ),
+          Container(
+            height: 100,
+            width: 100,
+          )
+        ],
       ),
     );
   }
