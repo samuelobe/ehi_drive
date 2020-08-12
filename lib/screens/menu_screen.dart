@@ -27,19 +27,17 @@ class _MenuScreenState extends State<MenuScreen> {
     _intentDataStreamSubscription = ReceiveSharingIntent.getMediaStream()
         .listen((List<SharedMediaFile> value) {
       Future.delayed(const Duration(milliseconds: 50), () {
+        print('MEMORY');
         setState(() {
           _sharedFiles = value;
           _path = (_sharedFiles?.map((f) => f.path)?.join(",") ?? "");
-          print(
-              "Shared:" + (_sharedFiles?.map((f) => f.path)?.join(",") ?? ""));
           if (_sharedFiles != null) {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ShareScreen(
-                    filePaths: _sharedFiles,
-                  ),
-                ));
+            print(_sharedFiles);
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return ShareScreen(
+                filePaths: _sharedFiles ?? [],
+              );
+            }));
           }
         });
       });
@@ -49,18 +47,17 @@ class _MenuScreenState extends State<MenuScreen> {
 
     // For sharing images coming from outside the app while the app is closed
     ReceiveSharingIntent.getInitialMedia().then((List<SharedMediaFile> value) {
-      Future.delayed(const Duration(milliseconds: 50), () {
+      Future.delayed(const Duration(milliseconds: 500), () {
+        print('CLOSED');
         setState(() {
           _sharedFiles = value;
           _path = (_sharedFiles?.map((f) => f.path)?.join(",") ?? "");
-          print(
-              "Shared:" + (_sharedFiles?.map((f) => f.path)?.join(",") ?? ""));
           if (_sharedFiles != null) {
             Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => ShareScreen(
-                    filePaths: _sharedFiles,
+                    filePaths: _sharedFiles ?? [],
                   ),
                 ));
           }
@@ -109,8 +106,6 @@ class _MenuScreenState extends State<MenuScreen> {
             Text("Shared files:", style: textStyleBold),
             Text(_path ?? ""),
             SizedBox(height: 100),
-            // Text("Shared urls/text:", style: textStyleBold),
-            // Text(_sharedText ?? ""),
           ],
         ),
       ),
