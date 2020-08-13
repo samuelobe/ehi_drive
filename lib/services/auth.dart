@@ -44,7 +44,7 @@ class Auth {
       flushbarPosition: FlushbarPosition.TOP,
       message: message,
       isDismissible: true,
-      duration: Duration(seconds: 3),
+      duration: Duration(seconds: 2),
       //animationDuration: Duration(milliseconds: 100),
     )..show(context);
   }

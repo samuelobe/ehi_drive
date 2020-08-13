@@ -26,13 +26,14 @@ class _MenuScreenState extends State<MenuScreen> {
     // For sharing images coming from outside the app while the app is in the memory
     _intentDataStreamSubscription = ReceiveSharingIntent.getMediaStream()
         .listen((List<SharedMediaFile> value) {
-      Future.delayed(const Duration(milliseconds: 50), () {
+      print(value);
+      Future.delayed(const Duration(milliseconds: 1000), () {
         print('MEMORY');
         setState(() {
           _sharedFiles = value;
           _path = (_sharedFiles?.map((f) => f.path)?.join(",") ?? "");
           if (_sharedFiles != null) {
-            print(_sharedFiles);
+            // print(_sharedFiles);
             Navigator.push(context, MaterialPageRoute(builder: (context) {
               return ShareScreen(
                 filePaths: _sharedFiles ?? [],
@@ -47,21 +48,22 @@ class _MenuScreenState extends State<MenuScreen> {
 
     // For sharing images coming from outside the app while the app is closed
     ReceiveSharingIntent.getInitialMedia().then((List<SharedMediaFile> value) {
-      Future.delayed(const Duration(milliseconds: 500), () {
-        print('CLOSED');
-        setState(() {
-          _sharedFiles = value;
-          _path = (_sharedFiles?.map((f) => f.path)?.join(",") ?? "");
-          if (_sharedFiles != null) {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ShareScreen(
-                    filePaths: _sharedFiles ?? [],
-                  ),
-                ));
-          }
-        });
+      print(value);
+      // Future.delayed(const Duration(milliseconds: 500), () {
+      print('CLOSED');
+      setState(() {
+        _sharedFiles = value;
+        _path = (_sharedFiles?.map((f) => f.path)?.join(",") ?? "");
+        if (_sharedFiles != null) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ShareScreen(
+                  filePaths: _sharedFiles ?? [],
+                ),
+              ));
+        }
+        // });
       });
     });
 
@@ -101,7 +103,7 @@ class _MenuScreenState extends State<MenuScreen> {
         automaticallyImplyLeading: false,
       ),
       body: Center(
-        child: Column(
+        child: ListView(
           children: <Widget>[
             Text("Shared files:", style: textStyleBold),
             Text(_path ?? ""),
