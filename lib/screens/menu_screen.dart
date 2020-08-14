@@ -15,7 +15,7 @@ class _MenuScreenState extends State<MenuScreen> {
   StreamSubscription _intentDataStreamSubscription;
   List<SharedMediaFile> _sharedFiles;
   String _sharedText;
-  String _path;
+  // String _path;
   static const textStyleBold = const TextStyle(fontWeight: FontWeight.bold);
   bool filePushed = false;
 
@@ -31,7 +31,7 @@ class _MenuScreenState extends State<MenuScreen> {
         print('MEMORY');
         setState(() {
           _sharedFiles = value;
-          _path = (_sharedFiles?.map((f) => f.path)?.join(",") ?? "");
+          // _path = (_sharedFiles?.map((f) => f.path)?.join(",") ?? "");
           if (_sharedFiles != null) {
             // print(_sharedFiles);
             Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -53,7 +53,7 @@ class _MenuScreenState extends State<MenuScreen> {
       print('CLOSED');
       setState(() {
         _sharedFiles = value;
-        _path = (_sharedFiles?.map((f) => f.path)?.join(",") ?? "");
+        // _path = (_sharedFiles?.map((f) => f.path)?.join(",") ?? "");
         if (_sharedFiles != null) {
           Navigator.push(
               context,
