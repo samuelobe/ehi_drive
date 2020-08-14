@@ -106,8 +106,9 @@ class _MenuScreenState extends State<MenuScreen> {
         child: ListView(
           children: <Widget>[
             Text("Shared files:", style: textStyleBold),
-            Text(_path ?? ""),
-            SizedBox(height: 100),
+            Text(
+                "Number of files shared: ${_sharedFiles != null ? _sharedFiles.length : ""}"),
+            // Text(_path ?? ""),
           ],
         ),
       ),

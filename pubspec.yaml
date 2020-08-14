@@ -8,7 +8,8 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  # flutter_launcher_icons: ^0.7.5
+  image_cropper: ^1.3.0
+  flutter_launcher_icons: ^0.7.5
   flutter_bloc: ^6.0.1
   modal_bottom_sheet: ^0.2.0+1
   receive_sharing_intent: ^1.4.0+2
@@ -30,13 +31,13 @@ dev_dependencies:
   # flutter_test:
   #   sdk: flutter
 
-# flutter_icons:
-#   android: "launcher_icon"
-#   ios: true
-#   image_path: "assets/ehidrive-logo.png"
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path_android: "assets/ehidrive-logo.png"
+  image_path_ios: "assets/ehidrive-logo-cropped.png"
 
 flutter:
-
   uses-material-design: true
   assets:
     - assets/

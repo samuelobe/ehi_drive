@@ -19,7 +19,13 @@ class _ShareScreenState extends State<ShareScreen> {
       if (paths[i].path != null &&
           paths[i].path != "" &&
           paths[i].type == SharedMediaType.IMAGE) {
-        imageList.add(Image.file(File(paths[i].path)));
+        imageList.add(Card(
+                  child: ListTile(
+              leading: Image.file(
+            File(paths[i].path),
+            
+          )),
+        ));
       }
     }
     return imageList;
