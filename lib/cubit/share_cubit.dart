@@ -1,22 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
-class ShareCubit extends Cubit<String> {
-  ShareCubit() : super("");
+class ShareCubit extends Cubit<Image> {
+  final Image image;
+  ShareCubit({@required this.image}) : super(image);
 
-  void addNumber({@required value}) {
-    if (state.length < 4) {
-      emit(state + value);
-    }
-  }
-
-  void removeNumber() {
-    if (state.length > 0) {
-      emit(state.substring(0, state.length - 1));
-    }
-  }
-
-  void clearPin() {
-    emit("");
+  void addImage({@required Image image}) {
+    emit(image);
   }
 }

@@ -1,4 +1,3 @@
-
 import 'package:ehidrive/widgets/share/share_screen_card.dart';
 import 'package:flutter/material.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';

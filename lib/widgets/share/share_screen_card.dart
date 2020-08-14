@@ -16,7 +16,8 @@ class ShareScreenCard extends StatefulWidget {
 class _ShareScreenCardState extends State<ShareScreenCard> {
   File croppedFile;
 
-  Future<Null> _cropImage(String path) async {
+  Future<Null> _cropImage(String path, BuildContext blocContext) async {
+    var bloc = blocContext.bloc<ShareCubit>();
     croppedFile = await ImageCropper.cropImage(
         sourcePath: path,
         aspectRatioPresets: Platform.isAndroid
@@ -46,18 +47,26 @@ class _ShareScreenCardState extends State<ShareScreenCard> {
         iosUiSettings: IOSUiSettings(
           title: 'Cropper',
         ));
+    if (croppedFile != null) {
+      bloc.addImage(image: Image.file(croppedFile));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ShareCubit(),
-      child: Card(
-        child: ListTile(
-            onTap: () => _cropImage(widget.path),
-            leading: Image.file(
-              File(widget.path),
-            )),
+      create: (context) => ShareCubit(
+          image: Image.file(
+        File(widget.path),
+      )),
+      child: BlocBuilder<ShareCubit, Image>(
+        builder: (context, imageState) {
+          return Card(
+            child: ListTile(
+                onTap: () => _cropImage(widget.path, context),
+                leading: imageState),
+          );
+        },
       ),
     );
   }
