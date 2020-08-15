@@ -5,7 +5,7 @@ class ShareCubit extends Cubit<Image> {
   final Image image;
   ShareCubit({@required this.image}) : super(image);
 
-  void addImage({@required Image image}) {
+  void changeImage({@required Image image}) {
     emit(image);
   }
 }

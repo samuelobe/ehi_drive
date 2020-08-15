@@ -19,7 +19,10 @@ class _ShareScreenState extends State<ShareScreen> {
         if (paths[i].type == SharedMediaType.IMAGE) {
           imageList.add(ShareScreenCard(path: paths[i].path));
         } else if (paths[i].type == SharedMediaType.VIDEO) {
-          imageList.add(ShareScreenCard(path: paths[i].path, thumbnailPath: paths[i].thumbnail ,));
+          imageList.add(ShareScreenCard(
+            path: paths[i].path,
+            thumbnailPath: paths[i].thumbnail,
+          ));
         }
       }
     }
@@ -28,54 +31,60 @@ class _ShareScreenState extends State<ShareScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            icon: Icon(Icons.send),
-            onPressed: () {},
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          actions: [
+            IconButton(
+              icon: Icon(Icons.send),
+              onPressed: () {},
+            ),
+          ],
+          automaticallyImplyLeading: false,
+          leading: IconButton(
+            icon: Icon(Icons.close),
+            onPressed: () => Navigator.pop(context),
           ),
-        ],
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-          icon: Icon(Icons.close),
-          onPressed: () => Navigator.pop(context),
+          backgroundColor: Colors.grey,
+          title: Text("Share Screen"),
         ),
-        backgroundColor: Colors.grey,
-        title: Text("Share Screen"),
-      ),
-      backgroundColor: Color(0xFFebebeb),
-      body: Column(
-        children: [
-          Container(
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: TextField(
-                minLines: 5,
-                maxLines: 10,
-                autocorrect: false,
-                decoration: InputDecoration(
-                  hintText: 'Write your upload description here',
-                  filled: true,
-                  fillColor: Colors.white,
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey),
+        backgroundColor: Color(0xFFebebeb),
+        body: Column(
+          children: [
+            Container(
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: TextField(
+                  keyboardType: TextInputType.multiline,
+                  minLines: 5,
+                  maxLines: 10,
+                  autocorrect: false,
+                  decoration: InputDecoration(
+                    hintText: 'Write your upload description here',
+                    filled: true,
+                    fillColor: Colors.white,
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          Divider(
-            thickness: 4,
-            color: const Color(0xfff67041),
-          ),
-          Flexible(child: ListView(children: _createImageList())),
-        ],
+            Flexible(child: ListView(children: _createImageList())),
+          ],
+        ),
       ),
     );
   }

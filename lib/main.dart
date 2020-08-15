@@ -1,6 +1,5 @@
 import 'package:ehidrive/screens/startup_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'services/auth.dart';
 
@@ -9,8 +8,6 @@ void main() async {
 
   Auth auth = Auth();
   Widget initialScreen = await auth.verifyDevice();
-  SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(statusBarColor: Colors.black));
   runApp(MyApp(
     screen: initialScreen,
   ));

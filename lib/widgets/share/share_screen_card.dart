@@ -45,10 +45,9 @@ class _ShareScreenCardState extends State<ShareScreenCard> {
             initAspectRatio: CropAspectRatioPreset.original,
             lockAspectRatio: false),
         iosUiSettings: IOSUiSettings(
-          title: 'Cropper',
         ));
     if (croppedFile != null) {
-      bloc.addImage(image: Image.file(croppedFile));
+      bloc.changeImage(image: Image.file(croppedFile));
     }
   }
 
@@ -63,13 +62,16 @@ class _ShareScreenCardState extends State<ShareScreenCard> {
       )),
       child: BlocBuilder<ShareCubit, Image>(
         builder: (context, imageState) {
-          return Card(
-            child: ListTile(
-                onTap: widget.thumbnailPath == null
-                    ? () => _cropImage(widget.path, context)
-                    : () {},
-                title: Text(widget.path),
-                leading: imageState),
+          return Padding(
+            padding: const EdgeInsets.only(left: 12.0, right: 12.0),
+            child: Card(
+              child: ListTile(
+                  onTap: widget.thumbnailPath == null
+                      ? () => _cropImage(widget.path, context)
+                      : () {},
+                  title: Text(widget.path),
+                  leading: imageState),
+            ),
           );
         },
       ),
