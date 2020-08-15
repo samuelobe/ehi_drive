@@ -7,7 +7,8 @@ import 'package:image_cropper/image_cropper.dart';
 
 class ShareScreenCard extends StatefulWidget {
   final String path;
-  const ShareScreenCard({@required this.path});
+  final String thumbnailPath;
+  const ShareScreenCard({@required this.path, this.thumbnailPath});
 
   @override
   _ShareScreenCardState createState() => _ShareScreenCardState();
@@ -53,18 +54,21 @@ class _ShareScreenCardState extends State<ShareScreenCard> {
 
   @override
   Widget build(BuildContext context) {
+    var displayPath =
+        widget.thumbnailPath == null ? widget.path : widget.thumbnailPath;
     return BlocProvider(
       create: (context) => ShareCubit(
           image: Image.file(
-        File(widget.path),
+        File(displayPath),
       )),
       child: BlocBuilder<ShareCubit, Image>(
         builder: (context, imageState) {
-          var path = widget.path;
           return Card(
             child: ListTile(
-                onTap: () => _cropImage(widget.path, context),
-                title: Text(path),
+                onTap: widget.thumbnailPath == null
+                    ? () => _cropImage(widget.path, context)
+                    : () {},
+                title: Text(widget.path),
                 leading: imageState),
           );
         },
