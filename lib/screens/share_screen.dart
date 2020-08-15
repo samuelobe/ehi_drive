@@ -31,7 +31,39 @@ class _ShareScreenState extends State<ShareScreen> {
         backgroundColor: Colors.grey,
         title: Text("Share Screen"),
       ),
-      body: ListView(children: _createImageList()),
+      backgroundColor: Color(0xFFebebeb),
+      body: Column(
+        children: [
+          Container(
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: TextField(
+                minLines: 5,
+                maxLines: 10,
+                autocorrect: false,
+                decoration: InputDecoration(
+                  hintText: 'Write your status here',
+                  filled: true,
+                  fillColor: Colors.white,
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Divider(
+            thickness: 4,
+            color: const Color(0xfff67041),
+          ),
+          Flexible(child: ListView(children: _createImageList())),
+        ],
+      ),
     );
   }
 }

@@ -39,8 +39,7 @@ class _ShareScreenCardState extends State<ShareScreenCard> {
                 CropAspectRatioPreset.ratio16x9
               ],
         androidUiSettings: AndroidUiSettings(
-            toolbarTitle: 'Cropper',
-            toolbarColor: Colors.deepOrange,
+            toolbarColor: const Color(0xfff67041),
             toolbarWidgetColor: Colors.white,
             initAspectRatio: CropAspectRatioPreset.original,
             lockAspectRatio: false),
@@ -61,9 +60,11 @@ class _ShareScreenCardState extends State<ShareScreenCard> {
       )),
       child: BlocBuilder<ShareCubit, Image>(
         builder: (context, imageState) {
+          var path = widget.path;
           return Card(
             child: ListTile(
                 onTap: () => _cropImage(widget.path, context),
+                title: Text(path),
                 leading: imageState),
           );
         },
