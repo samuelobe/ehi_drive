@@ -15,6 +15,7 @@ class PinButton extends StatelessWidget {
     var bloc = context.bloc<PinCubit>();
 
     return InkWell(
+      customBorder: CircleBorder(),
       enableFeedback: true,
       onTap: () => bloc.addNumber(value: value),
       child: Stack(
