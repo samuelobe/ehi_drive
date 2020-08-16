@@ -64,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       //   borderSide: BorderSide(),
                       // ),
                     ),
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.text,
                     validator: (input) {
                       var output;
                       if (input.isEmpty) {

@@ -1,4 +1,5 @@
 import 'package:ehidrive/widgets/share/share_screen_card.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 
@@ -29,16 +30,18 @@ class _ShareScreenState extends State<ShareScreen> {
     return imageList;
   }
 
+  _closeKeyboard() {
+    FocusScopeNode currentFocus = FocusScope.of(context);
+
+    if (!currentFocus.hasPrimaryFocus) {
+      currentFocus.unfocus();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-
-        if (!currentFocus.hasPrimaryFocus) {
-          currentFocus.unfocus();
-        }
-      },
+      onTap: _closeKeyboard,
       child: Scaffold(
         appBar: AppBar(
           actions: [
@@ -62,7 +65,7 @@ class _ShareScreenState extends State<ShareScreen> {
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: TextField(
-                  keyboardType: TextInputType.multiline,
+                  keyboardType: TextInputType.text,
                   minLines: 5,
                   maxLines: 10,
                   autocorrect: false,

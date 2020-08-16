@@ -17,7 +17,16 @@ class ShareScreenCard extends StatefulWidget {
 class _ShareScreenCardState extends State<ShareScreenCard> {
   File croppedFile;
 
+  _closeKeyboard() {
+    FocusScopeNode currentFocus = FocusScope.of(context);
+
+    if (!currentFocus.hasPrimaryFocus) {
+      currentFocus.unfocus();
+    }
+  }
+
   Future<Null> _cropImage(String path, BuildContext blocContext) async {
+    _closeKeyboard();
     var bloc = blocContext.bloc<ShareCubit>();
     croppedFile = await ImageCropper.cropImage(
         sourcePath: path,
@@ -44,10 +53,13 @@ class _ShareScreenCardState extends State<ShareScreenCard> {
             toolbarWidgetColor: Colors.white,
             initAspectRatio: CropAspectRatioPreset.original,
             lockAspectRatio: false),
-        iosUiSettings: IOSUiSettings(
-        ));
+        iosUiSettings: IOSUiSettings());
     if (croppedFile != null) {
-      bloc.changeImage(image: Image.file(croppedFile));
+      bloc.changeImage(
+          image: Image.file(
+        croppedFile,
+        width: 75,
+      ));
     }
   }
 
@@ -59,6 +71,7 @@ class _ShareScreenCardState extends State<ShareScreenCard> {
       create: (context) => ShareCubit(
           image: Image.file(
         File(displayPath),
+        width: 75,
       )),
       child: BlocBuilder<ShareCubit, Image>(
         builder: (context, imageState) {

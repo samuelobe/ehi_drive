@@ -27,20 +27,19 @@ class _MenuScreenState extends State<MenuScreen> {
     _intentDataStreamSubscription = ReceiveSharingIntent.getMediaStream()
         .listen((List<SharedMediaFile> value) {
       print(value);
-      Future.delayed(const Duration(milliseconds: 1000), () {
-        print('MEMORY');
-        setState(() {
-          _sharedFiles = value;
-          // _path = (_sharedFiles?.map((f) => f.path)?.join(",") ?? "");
-          if (_sharedFiles != null) {
-            // print(_sharedFiles);
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return ShareScreen(
-                filePaths: _sharedFiles ?? [],
-              );
-            }));
-          }
-        });
+
+      print('MEMORY');
+      setState(() {
+        _sharedFiles = value;
+        // _path = (_sharedFiles?.map((f) => f.path)?.join(",") ?? "");
+        if (_sharedFiles != null) {
+          // print(_sharedFiles);
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return ShareScreen(
+              filePaths: _sharedFiles ?? [],
+            );
+          }));
+        }
       });
     }, onError: (err) {
       print("getIntentDataStream error: $err");
