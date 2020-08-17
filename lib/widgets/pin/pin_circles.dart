@@ -32,8 +32,8 @@ class _Circle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 20,
-      width: 20,
+      height: 18,
+      width: 18,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: active ? const Color(0xfff67041) : Colors.grey,

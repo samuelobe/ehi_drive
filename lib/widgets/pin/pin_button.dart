@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class PinButton extends StatelessWidget {
   final double sizedBoxWidth = 50;
   final Color fontColor = Colors.black;
-  final double fontSize = 40;
+  final double fontSize = 35;
   final String value;
 
   PinButton({@required this.value});
@@ -29,7 +29,7 @@ class PinButton extends StatelessWidget {
           ),
           Container(
             height: 75,
-            width: 100,
+            width: 90,
           )
         ],
       ),

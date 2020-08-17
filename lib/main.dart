@@ -1,6 +1,5 @@
 import 'package:device_preview/device_preview.dart' as dp;
 import 'package:ehidrive/screens/startup_screen.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -15,7 +14,7 @@ void main() async {
     DeviceOrientation.portraitUp,
   ]);
   runApp(dp.DevicePreview(
-    enabled: !kReleaseMode,
+    enabled: false, //!kReleaseMode,
     builder: (context) => MyApp(
       screen: initialScreen,
     ),

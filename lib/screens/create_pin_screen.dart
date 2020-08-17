@@ -67,11 +67,15 @@ class CreatePinScreenState extends State<CreatePinScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text("Create PIN", style: TextStyle(fontSize: 25),),
+                Text(
+                  "Create PIN",
+                  style: TextStyle(fontSize: 20),
+                ),
                 Container(
                   margin: EdgeInsets.all(20),
-                  padding: EdgeInsets.all(20),
+                  padding: EdgeInsets.only(left: 20, right: 20),
                   child: PinPut(
+                    keyboardType: TextInputType.number,
                     textStyle:
                         TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                     fieldsCount: 4,
@@ -90,11 +94,15 @@ class CreatePinScreenState extends State<CreatePinScreen> {
                   ),
                 ),
                 SizedBox(height: 30),
-                Text("Verify PIN", style: TextStyle(fontSize: 25),),
+                Text(
+                  "Verify PIN",
+                  style: TextStyle(fontSize: 20),
+                ),
                 Container(
                   margin: EdgeInsets.all(20),
-                  padding: EdgeInsets.all(20),
+                  padding: EdgeInsets.only(left: 20, right: 20),
                   child: PinPut(
+                    keyboardType: TextInputType.number,
                     textStyle:
                         TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                     fieldsCount: 4,
@@ -112,7 +120,7 @@ class CreatePinScreenState extends State<CreatePinScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: 40),
                 RaisedButton(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),

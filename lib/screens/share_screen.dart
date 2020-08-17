@@ -85,7 +85,14 @@ class _ShareScreenState extends State<ShareScreen> {
                 ),
               ),
             ),
-            Flexible(child: ListView(children: _createImageList())),
+            Flexible(
+                child: NotificationListener<OverscrollIndicatorNotification>(
+                    onNotification:
+                        (OverscrollIndicatorNotification overscroll) {
+                      overscroll.disallowGlow();
+                      return null;
+                    },
+                    child: ListView(children: _createImageList()))),
           ],
         ),
       ),

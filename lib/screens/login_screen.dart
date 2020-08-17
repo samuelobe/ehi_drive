@@ -44,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: <Widget>[
                   Image.asset(
                     "assets/ehidrive-logo.png",
-                    height: MediaQuery.of(context).size.height * 0.12,
+                    height: MediaQuery.of(context).size.height * 0.15,
                   ),
                   SizedBox(
                     height: 60,
@@ -102,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   RaisedButton(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(13.0),
+                      borderRadius: BorderRadius.circular(20.0),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(14.0),
