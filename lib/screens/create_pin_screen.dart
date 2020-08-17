@@ -67,7 +67,7 @@ class CreatePinScreenState extends State<CreatePinScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text("Create your pin"),
+                Text("Create PIN", style: TextStyle(fontSize: 25),),
                 Container(
                   margin: EdgeInsets.all(20),
                   padding: EdgeInsets.all(20),
@@ -90,7 +90,7 @@ class CreatePinScreenState extends State<CreatePinScreen> {
                   ),
                 ),
                 SizedBox(height: 30),
-                Text("Verify your pin"),
+                Text("Verify PIN", style: TextStyle(fontSize: 25),),
                 Container(
                   margin: EdgeInsets.all(20),
                   padding: EdgeInsets.all(20),

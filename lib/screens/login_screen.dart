@@ -44,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: <Widget>[
                   Image.asset(
                     "assets/ehidrive-logo.png",
-                    height: MediaQuery.of(context).size.height * 0.20,
+                    height: MediaQuery.of(context).size.height * 0.12,
                   ),
                   SizedBox(
                     height: 60,

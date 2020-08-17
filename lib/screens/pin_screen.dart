@@ -31,7 +31,7 @@ class PinScreenState extends State<PinScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       SizedBox(
-                        height: 100,
+                        height: 40,
                       ),
                       Text(
                         "Enter PIN",
