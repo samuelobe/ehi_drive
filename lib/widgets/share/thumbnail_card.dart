@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_cropper/image_cropper.dart';
 
-class ShareScreenCard extends StatefulWidget {
+class ThumbnailCard extends StatefulWidget {
   final String path;
   final String thumbnailPath;
-  const ShareScreenCard({@required this.path, this.thumbnailPath});
+  const ThumbnailCard({@required this.path, this.thumbnailPath});
 
   @override
-  _ShareScreenCardState createState() => _ShareScreenCardState();
+  _ThumbnailCardState createState() => _ThumbnailCardState();
 }
 
-class _ShareScreenCardState extends State<ShareScreenCard> {
+class _ThumbnailCardState extends State<ThumbnailCard> {
   File croppedFile;
 
   _closeKeyboard() {

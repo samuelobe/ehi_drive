@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'soap.dart';
 import 'package:ehidrive/models/user.dart';
-import 'package:ehidrive/screens/alert_screen.dart';
 import 'package:ehidrive/screens/pin_screen.dart';
 import 'package:ehidrive/screens/create_pin_screen.dart';
 import 'package:ehidrive/screens/login_screen.dart';

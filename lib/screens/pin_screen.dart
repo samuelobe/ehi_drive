@@ -4,6 +4,7 @@ import 'package:ehidrive/widgets/pin/pin.dart';
 import 'package:ehidrive/widgets/pin/pin_circles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ehidrive/theme/theme.dart' as theme;
 
 class PinScreen extends StatefulWidget {
   @override
@@ -18,7 +19,7 @@ class PinScreenState extends State<PinScreen> {
     return BlocProvider(
       create: (context) => PinCubit(),
       child: Scaffold(
-          backgroundColor: Color(0xFFebebeb),
+          backgroundColor: theme.backgroundColor,
           body: BlocBuilder<PinCubit, String>(
             builder: (context, state) {
               if (state.length == 4) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
+import 'package:ehidrive/theme/theme.dart' as theme;
 
 class StartupScreen extends StatelessWidget {
   final Widget screen;
@@ -9,7 +10,7 @@ class StartupScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SplashScreen(
       loaderColor: const Color(0xfff67041),
-      backgroundColor: const Color(0xFFebebeb),
+      backgroundColor: theme.backgroundColor,
       seconds: 5,
       photoSize: 100,
       navigateAfterSeconds: screen,

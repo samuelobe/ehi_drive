@@ -1,6 +1,7 @@
 import 'package:ehidrive/models/user.dart';
 import 'package:ehidrive/services/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ehidrive/theme/theme.dart' as theme;
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key}) : super(key: key);
@@ -28,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFebebeb),
+      backgroundColor: theme.backgroundColor,
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
@@ -55,14 +56,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   TextFormField(
                     maxLength: 10,
                     decoration: InputDecoration(
+                      filled: true,
                       prefixIcon: Icon(Icons.person),
                       labelText: "Username",
                       counterText: "",
                       fillColor: Colors.white,
-                      // border: OutlineInputBorder(
-                      //   borderRadius: BorderRadius.circular(10.0),
-                      //   borderSide: BorderSide(),
-                      // ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(),
+                      ),
                     ),
                     keyboardType: TextInputType.text,
                     validator: (input) {
@@ -79,13 +81,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   TextFormField(
                     decoration: InputDecoration(
+                      filled: true,
                       prefixIcon: Icon(Icons.lock),
                       labelText: "Password",
                       fillColor: Colors.white,
-                      // border: OutlineInputBorder(
-                      //   borderRadius: BorderRadius.circular(10.0),
-                      //   borderSide: BorderSide(),
-                      // ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(),
+                      ),
                     ),
                     keyboardType: TextInputType.visiblePassword,
                     validator: (input) {
@@ -98,11 +101,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     onSaved: (input) => password = input.trim(),
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 20,
                   ),
                   RaisedButton(
+                    color: Colors.white,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(14.0),
