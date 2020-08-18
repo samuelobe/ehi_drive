@@ -19,8 +19,8 @@ class PinIconButton extends StatelessWidget {
             children: [
               Container(child: icon),
               Container(
-                height: 75,
-                width: 90,
+                 height: MediaQuery.of(context).size.height * 0.11,
+            width: MediaQuery.of(context).size.height * 0.15,
               )
             ],
           ),

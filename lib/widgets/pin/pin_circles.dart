@@ -32,8 +32,8 @@ class _Circle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 18,
-      width: 18,
+      height: MediaQuery.of(context).size.height * 0.025,
+      width: MediaQuery.of(context).size.height * 0.025,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: active ? const Color(0xfff67041) : Colors.grey,

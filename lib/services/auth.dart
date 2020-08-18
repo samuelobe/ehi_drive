@@ -73,28 +73,40 @@ class Auth {
         if (success) {
           print("Going to Pin Screen");
           return PinScreen();
-        } else if (!success && errorcode == 'VD002') {
+        } else {
           print("Going to Login Screen");
           return LoginScreen();
-        } else {
-          print("Going to Alert Screen");
-          return AlertScreen(
-            message: message,
-          );
         }
+        // else if (!success && errorcode == 'VD002') {
+        //   print("Going to Login Screen");
+        //   return LoginScreen();
+        // }
+        // else {
+        //   print("Going to Alert Screen");
+        //   return AlertScreen(
+        //     message: message,
+        //   );
+        // }
       } else {
-        print("Going to Alert Screen");
-        return AlertScreen(
-          message: "Error: $statusCode. Please try again",
-        );
+        print("Going to Login Screen");
+        return LoginScreen();
       }
+
+      // else {
+      //   print("Going to Alert Screen");
+      //   return AlertScreen(
+      //     message: "Error: $statusCode. Please try again",
+      //   );
+      // }
     } catch (e) {
       print(e);
-      print("Going to Alert Screen");
-      return AlertScreen(
-        message:
-            "Error: Device could not be verified due to a network issue. Please try again",
-      );
+      print("Going to Login Screen");
+      return LoginScreen();
+      // print("Going to Alert Screen");
+      // return AlertScreen(
+      //   message:
+      //       "Error: Device could not be verified due to a network issue. Please try again",
+      // );
     }
   }
 
