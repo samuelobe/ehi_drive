@@ -70,6 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                     child: TextFormField(
+                      enableSuggestions: false,
                       maxLength: 10,
                       decoration: InputDecoration(
                           filled: true,
@@ -109,6 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                     child: TextFormField(
+                      enableSuggestions: false,
                       decoration: InputDecoration(
                           filled: true,
                           labelStyle: TextStyle(fontSize: 14),

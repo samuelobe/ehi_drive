@@ -15,7 +15,6 @@ dependencies:
   flutter_bloc: ^6.0.1
   modal_bottom_sheet: ^0.2.0+1
   receive_sharing_intent: ^1.4.0+2
-  image_picker: ^0.6.7+4
   pin_entry_text_field: ^0.1.4
   flushbar: ^1.10.4
   pinput: ^0.2.4

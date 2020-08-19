@@ -1,7 +1,11 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:ehidrive/cubit/menu_cubit.dart';
 import 'package:ehidrive/screens/share_screen.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 
 class MenuScreen extends StatefulWidget {
@@ -15,9 +19,12 @@ class _MenuScreenState extends State<MenuScreen> {
   StreamSubscription _intentDataStreamSubscription;
   List<SharedMediaFile> _sharedFiles;
   String _sharedText;
-  // String _path;
-  static const textStyleBold = const TextStyle(fontWeight: FontWeight.bold);
-  bool filePushed = false;
+
+  getFiles(BuildContext blocContext) async {
+    var files = await FilePicker.getMultiFile();
+    var bloc = blocContext.bloc<MenuCubit>();
+    bloc.changeFiles(files: files);
+  }
 
   @override
   void initState() {
@@ -95,20 +102,29 @@ class _MenuScreenState extends State<MenuScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.grey,
-        title: Text('Menu Screen'),
-        automaticallyImplyLeading: false,
-      ),
-      body: Center(
-        child: ListView(
-          children: <Widget>[
-            Text("Shared files:", style: textStyleBold),
-            Text(
-                "Number of files shared: ${_sharedFiles != null ? _sharedFiles.length : ""}"),
-            // Text(_path ?? ""),
-          ],
+    return BlocProvider(
+      create: (context) => MenuCubit(),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.grey,
+          title: Text('Menu Screen'),
+          automaticallyImplyLeading: false,
+        ),
+        body: BlocBuilder<MenuCubit, List<File>>(
+          builder: (context, files) {
+            return Center(
+              child: Column(
+                children: [
+                  FlatButton(
+                    child: Text("Get Files"),
+                    color: Colors.grey,
+                    onPressed: () => getFiles(context),
+                  ),
+                  Text(files != null ? files.length.toString() : "0"),
+                ],
+              ),
+            );
+          },
         ),
       ),
     );
