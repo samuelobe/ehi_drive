@@ -1,5 +1,6 @@
 import 'package:ehidrive/cubit/pin_cubit.dart';
 import 'package:ehidrive/services/auth.dart';
+import 'package:ehidrive/widgets/global/custom_raised_button.dart';
 import 'package:ehidrive/widgets/pin/pin.dart';
 import 'package:ehidrive/widgets/pin/pin_circles.dart';
 import 'package:flutter/material.dart';
@@ -41,23 +42,10 @@ class PinScreenState extends State<PinScreen> {
                       SizedBox(height: 40),
                       Pin(),
                       SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          RaisedButton(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(14.0),
-                                child: Text(
-                                  "Un-Register",
-                                  style: TextStyle(fontSize: 15),
-                                ),
-                              ),
-                              onPressed: () =>
-                                  auth.unregisterDevice(context: context)),
-                        ],
+                      CustomRaisedButton(
+                        onPressed: () =>
+                            auth.unregisterDevice(context: context),
+                        text: "Un-Register",
                       ),
                       SizedBox(
                         height: 10,

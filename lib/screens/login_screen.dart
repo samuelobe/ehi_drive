@@ -1,5 +1,6 @@
 import 'package:ehidrive/models/user.dart';
 import 'package:ehidrive/services/auth.dart';
+import 'package:ehidrive/widgets/global/custom_raised_button.dart';
 import 'package:flutter/material.dart';
 import 'package:ehidrive/theme/theme.dart' as theme;
 
@@ -29,15 +30,11 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.grey,
-        automaticallyImplyLeading: false,
-        title: Image.asset(
-          "assets/ehidrive-logo.png",
-          height: 50,
-          width: 50,
-        ),
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.grey,
+      //   automaticallyImplyLeading: false,
+      //   title: Text("Login"),
+      // ),
       backgroundColor: theme.backgroundColor,
       body: GestureDetector(
         onTap: () {
@@ -47,32 +44,43 @@ class _LoginScreenState extends State<LoginScreen> {
           key: _formkey,
           child: Center(
             child: Container(
-              padding: EdgeInsets.all(25),
+              padding: EdgeInsets.all(35),
               child: ListView(
                 physics: ClampingScrollPhysics(),
                 shrinkWrap: true,
                 children: <Widget>[
+                  Image.asset(
+                    "assets/ehidrive-logo.png",
+                    height: MediaQuery.of(context).size.height * 0.15,
+                    width: MediaQuery.of(context).size.width * 0.15,
+                  ),
                   SizedBox(
                     height: 25,
                   ),
                   Container(
                     height: 50,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 2,
+                          blurRadius: 6,
+                          offset: Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
+                    ),
                     child: TextFormField(
                       maxLength: 10,
                       decoration: InputDecoration(
-                        filled: true,
-                        prefixIcon: Icon(
-                          Icons.person,
-                        ),
-                        labelStyle: TextStyle(fontSize: 14),
-                        labelText: "Username",
-                        counterText: "",
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide(),
-                        ),
-                      ),
+                          filled: true,
+                          prefixIcon: Icon(
+                            Icons.person,
+                          ),
+                          labelStyle: TextStyle(fontSize: 14),
+                          labelText: "Username",
+                          counterText: "",
+                          fillColor: Colors.white,
+                          border: InputBorder.none),
                       keyboardType: TextInputType.text,
                       validator: (input) {
                         var output;
@@ -89,18 +97,25 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   Container(
                     height: 50,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 2,
+                          blurRadius: 6,
+                          offset: Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
+                    ),
                     child: TextFormField(
                       decoration: InputDecoration(
-                        filled: true,
-                        labelStyle: TextStyle(fontSize: 14),
-                        prefixIcon: Icon(Icons.lock),
-                        labelText: "Password",
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide(),
-                        ),
-                      ),
+                          filled: true,
+                          labelStyle: TextStyle(fontSize: 14),
+                          prefixIcon: Icon(Icons.lock,),
+                          labelText: "Password",
+                          fillColor: Colors.white,
+                          border: InputBorder.none),
                       keyboardType: TextInputType.visiblePassword,
                       validator: (input) {
                         var output;
@@ -115,18 +130,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: 20,
                   ),
-                  RaisedButton(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(14.0),
-                      child: Text(
-                        "Sign In",
-                        style: TextStyle(fontSize: 15),
-                      ),
-                    ),
+                  CustomRaisedButton(
+                    text: "Sign In",
                     onPressed: signIn,
                   ),
                 ],

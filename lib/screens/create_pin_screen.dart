@@ -1,6 +1,7 @@
 import 'package:ehidrive/models/user.dart';
 import 'package:ehidrive/services/auth.dart';
 import 'package:ehidrive/theme/theme.dart' as theme;
+import 'package:ehidrive/widgets/global/custom_raised_button.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pin_put/pin_put.dart';
@@ -121,22 +122,10 @@ class CreatePinScreenState extends State<CreatePinScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 40),
-                RaisedButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(14.0),
-                    child: Text(
-                      "Create PIN",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ),
-                  onPressed: createPin,
-                ),
+                SizedBox(height: 10),
+                CustomRaisedButton(onPressed: createPin, text: "Create Pin",),
                 SizedBox(
-                  height: 10,
+                  height: 20,
                 )
               ],
             ),
