@@ -1,8 +1,9 @@
-import 'package:ehidrive/widgets/share/share_screen_card.dart';
+import 'package:ehidrive/widgets/share/file_card.dart';
+import 'package:ehidrive/widgets/share/thumbnail_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
-
+import 'package:ehidrive/theme/theme.dart' as theme;
 class ShareScreen extends StatefulWidget {
   final List<SharedMediaFile> filePaths;
   ShareScreen({this.filePaths});
@@ -18,12 +19,15 @@ class _ShareScreenState extends State<ShareScreen> {
     for (var i = 0; i < paths.length; i++) {
       if (paths[i].path != null && paths[i].path != "") {
         if (paths[i].type == SharedMediaType.IMAGE) {
-          imageList.add(ShareScreenCard(path: paths[i].path));
+          imageList.add(ThumbnailCard(path: paths[i].path));
         } else if (paths[i].type == SharedMediaType.VIDEO) {
-          imageList.add(ShareScreenCard(
+          imageList.add(ThumbnailCard(
             path: paths[i].path,
             thumbnailPath: paths[i].thumbnail,
           ));
+        }
+        else{
+          imageList.add(FileCard(path: paths[i].path));
         }
       }
     }
@@ -58,7 +62,7 @@ class _ShareScreenState extends State<ShareScreen> {
           backgroundColor: Colors.grey,
           title: Text("Share Screen"),
         ),
-        backgroundColor: Color(0xFFebebeb),
+        backgroundColor: theme.backgroundColor,
         body: Column(
           children: [
             Container(

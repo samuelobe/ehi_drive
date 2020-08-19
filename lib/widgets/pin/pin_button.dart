@@ -28,8 +28,8 @@ class PinButton extends StatelessWidget {
             ),
           ),
           Container(
-            height: 90,
-            width: 110,
+            height: MediaQuery.of(context).size.height * 0.11,
+            width: MediaQuery.of(context).size.height * 0.15,
           )
         ],
       ),

@@ -1,5 +1,6 @@
 import 'package:ehidrive/models/user.dart';
 import 'package:ehidrive/services/auth.dart';
+import 'package:ehidrive/theme/theme.dart' as theme;
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pin_put/pin_put.dart';
@@ -61,7 +62,7 @@ class CreatePinScreenState extends State<CreatePinScreen> {
         appBar: AppBar(
           backgroundColor: Colors.grey,
         ),
-        backgroundColor: Color(0xFFebebeb),
+        backgroundColor: theme.backgroundColor,
         body: Center(
           child: SingleChildScrollView(
             child: Column(
