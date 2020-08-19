@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 import 'package:ehidrive/theme/theme.dart' as theme;
+
 class ShareScreen extends StatefulWidget {
   final List<SharedMediaFile> filePaths;
   ShareScreen({this.filePaths});
@@ -25,8 +26,7 @@ class _ShareScreenState extends State<ShareScreen> {
             path: paths[i].path,
             thumbnailPath: paths[i].thumbnail,
           ));
-        }
-        else{
+        } else {
           imageList.add(FileCard(path: paths[i].path));
         }
       }

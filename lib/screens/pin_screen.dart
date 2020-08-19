@@ -19,6 +19,10 @@ class PinScreenState extends State<PinScreen> {
     return BlocProvider(
       create: (context) => PinCubit(),
       child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.grey,
+            title: Text("Input PIN"),
+          ),
           backgroundColor: theme.backgroundColor,
           body: BlocBuilder<PinCubit, String>(
             builder: (context, state) {
@@ -42,13 +46,13 @@ class PinScreenState extends State<PinScreen> {
                         children: <Widget>[
                           RaisedButton(
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0),
+                                borderRadius: BorderRadius.circular(10.0),
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(14.0),
                                 child: Text(
                                   "Un-Register",
-                                  style: TextStyle(fontSize: 20),
+                                  style: TextStyle(fontSize: 15),
                                 ),
                               ),
                               onPressed: () =>

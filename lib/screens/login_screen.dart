@@ -29,6 +29,15 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.grey,
+        automaticallyImplyLeading: false,
+        title: Image.asset(
+          "assets/ehidrive-logo.png",
+          height: 50,
+          width: 50,
+        ),
+      ),
       backgroundColor: theme.backgroundColor,
       body: GestureDetector(
         onTap: () {
@@ -43,62 +52,65 @@ class _LoginScreenState extends State<LoginScreen> {
                 physics: ClampingScrollPhysics(),
                 shrinkWrap: true,
                 children: <Widget>[
-                  Image.asset(
-                    "assets/ehidrive-logo.png",
-                    height: MediaQuery.of(context).size.height * 0.15,
-                  ),
                   SizedBox(
+                    height: 25,
+                  ),
+                  Container(
                     height: 50,
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  TextFormField(
-                    maxLength: 10,
-                    decoration: InputDecoration(
-                      filled: true,
-                      prefixIcon: Icon(Icons.person),
-                      labelText: "Username",
-                      counterText: "",
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(),
+                    child: TextFormField(
+                      maxLength: 10,
+                      decoration: InputDecoration(
+                        filled: true,
+                        prefixIcon: Icon(
+                          Icons.person,
+                        ),
+                        labelStyle: TextStyle(fontSize: 14),
+                        labelText: "Username",
+                        counterText: "",
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: BorderSide(),
+                        ),
                       ),
+                      keyboardType: TextInputType.text,
+                      validator: (input) {
+                        var output;
+                        if (input.isEmpty) {
+                          output = "Please type in your username";
+                        }
+                        return output;
+                      },
+                      onSaved: (input) => username = input.trim(),
                     ),
-                    keyboardType: TextInputType.text,
-                    validator: (input) {
-                      var output;
-                      if (input.isEmpty) {
-                        output = "Please type in your username";
-                      }
-                      return output;
-                    },
-                    onSaved: (input) => username = input.trim(),
                   ),
                   SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      filled: true,
-                      prefixIcon: Icon(Icons.lock),
-                      labelText: "Password",
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(),
+                  Container(
+                    height: 50,
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        filled: true,
+                        labelStyle: TextStyle(fontSize: 14),
+                        prefixIcon: Icon(Icons.lock),
+                        labelText: "Password",
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: BorderSide(),
+                        ),
                       ),
+                      keyboardType: TextInputType.visiblePassword,
+                      validator: (input) {
+                        var output;
+                        if (input.isEmpty) {
+                          output = "Please type in your password";
+                        }
+                        return output;
+                      },
+                      onSaved: (input) => password = input.trim(),
                     ),
-                    keyboardType: TextInputType.visiblePassword,
-                    validator: (input) {
-                      var output;
-                      if (input.isEmpty) {
-                        output = "Please type in your password";
-                      }
-                      return output;
-                    },
-                    onSaved: (input) => password = input.trim(),
                   ),
                   SizedBox(
                     height: 20,
@@ -112,11 +124,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       padding: const EdgeInsets.all(14.0),
                       child: Text(
                         "Sign In",
-                        style: TextStyle(fontSize: 22),
+                        style: TextStyle(fontSize: 15),
                       ),
                     ),
                     onPressed: signIn,
-                  )
+                  ),
                 ],
               ),
             ),
