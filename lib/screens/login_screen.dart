@@ -28,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(backgroundColor: Color(0xFFebebeb), automaticallyImplyLeading: false, elevation:  0, brightness: Brightness.light,),
       backgroundColor: Color(0xFFebebeb),
       body: GestureDetector(
         onTap: () {
@@ -47,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: MediaQuery.of(context).size.height * 0.15,
                   ),
                   SizedBox(
-                    height: 60,
+                    height: 50,
                   ),
                   SizedBox(
                     height: 5,

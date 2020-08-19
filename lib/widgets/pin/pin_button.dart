@@ -28,8 +28,8 @@ class PinButton extends StatelessWidget {
             ),
           ),
           Container(
-            height: 75,
-            width: 90,
+            height: 90,
+            width: 110,
           )
         ],
       ),

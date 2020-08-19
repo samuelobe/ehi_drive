@@ -18,6 +18,10 @@ class PinScreenState extends State<PinScreen> {
     return BlocProvider(
       create: (context) => PinCubit(),
       child: Scaffold(
+          appBar: AppBar(
+            title: Text("Enter PIN"),
+            backgroundColor: Colors.grey,
+          ),
           backgroundColor: Color(0xFFebebeb),
           body: BlocBuilder<PinCubit, String>(
             builder: (context, state) {
@@ -30,21 +34,10 @@ class PinScreenState extends State<PinScreen> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      SizedBox(
-                        height: 40,
-                      ),
-                      Text(
-                        "Enter PIN",
-                        style: TextStyle(fontSize: 30),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
                       PinCircles(
                         numActive: state.length,
                       ),
-                      // Text(state),
-                      SizedBox(height: 20),
+                      SizedBox(height: 40),
                       Pin(),
                       SizedBox(height: 10),
                       Row(
