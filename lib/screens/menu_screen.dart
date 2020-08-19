@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:ehidrive/cubit/menu_cubit.dart';
 import 'package:ehidrive/screens/share_screen.dart';
+import 'package:ehidrive/screens/share_screen_file_picker.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,9 +22,28 @@ class _MenuScreenState extends State<MenuScreen> {
   String _sharedText;
 
   getFiles(BuildContext blocContext) async {
-    var files = await FilePicker.getMultiFile();
+    var files = await FilePicker.getMultiFile(
+      type: FileType.custom,
+      allowedExtensions: [
+        'jpg',
+        'pdf',
+        'jpeg',
+        'png',
+        'zip',
+        'rar',
+        'mp4',
+        'txt'
+      ],
+    );
     var bloc = blocContext.bloc<MenuCubit>();
     bloc.changeFiles(files: files);
+    if (files != null) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return ShareScreenFilePicker(
+          filePaths: files,
+        );
+      }));
+    }
   }
 
   @override
@@ -114,13 +134,14 @@ class _MenuScreenState extends State<MenuScreen> {
           builder: (context, files) {
             return Center(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   FlatButton(
-                    child: Text("Get Files"),
+                    child: Text("Upload to EHI Drive"),
                     color: Colors.grey,
                     onPressed: () => getFiles(context),
                   ),
-                  Text(files != null ? files.length.toString() : "0"),
+                  // Text(files != null ? files.length.toString() : "0"),
                 ],
               ),
             );

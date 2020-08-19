@@ -71,8 +71,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     child: TextFormField(
                       enableSuggestions: false,
+                      autocorrect: false,
                       maxLength: 10,
                       decoration: InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
+                          contentPadding: EdgeInsets.zero,
                           filled: true,
                           prefixIcon: Icon(
                             Icons.person,
@@ -82,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           counterText: "",
                           fillColor: Colors.white,
                           border: InputBorder.none),
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.emailAddress,
                       validator: (input) {
                         var output;
                         if (input.isEmpty) {
@@ -111,10 +114,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     child: TextFormField(
                       enableSuggestions: false,
+                      autocorrect: false,
+                      obscureText: true,
                       decoration: InputDecoration(
+                          contentPadding: EdgeInsets.zero,
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
                           filled: true,
                           labelStyle: TextStyle(fontSize: 14),
-                          prefixIcon: Icon(Icons.lock,),
+                          prefixIcon: Icon(
+                            Icons.lock,
+                          ),
                           labelText: "Password",
                           fillColor: Colors.white,
                           border: InputBorder.none),

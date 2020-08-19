@@ -29,7 +29,6 @@ class CustomRaisedButton extends StatelessWidget {
           child: Text(
             text,
             style: TextStyle(fontSize: 15),
-            
           ),
         ),
         onPressed: onPressed,
