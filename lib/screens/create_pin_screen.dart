@@ -67,83 +67,85 @@ class CreatePinScreenState extends State<CreatePinScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _closeKeyboard,
-      child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.grey,
-          ),
-          backgroundColor: theme.backgroundColor,
-          body: Center(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Text(
-                    "Create PIN",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(20),
-                    padding: EdgeInsets.only(left: 20, right: 20),
-                    child: PinPut(
-                      keyboardType: TextInputType.number,
-                      textStyle:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                      fieldsCount: 4,
-                      focusNode: _pinPutFocusNode1,
-                      controller: _pinPutController1,
-                      submittedFieldDecoration: _pinPutDecoration.copyWith(
-                          borderRadius: BorderRadius.circular(20)),
-                      selectedFieldDecoration: _pinPutDecoration,
-                      followingFieldDecoration: _pinPutDecoration.copyWith(
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          width: 2,
-                          color: Color(0xfff67041),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 30),
-                  Text(
-                    "Verify PIN",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(20),
-                    padding: EdgeInsets.only(left: 20, right: 20),
-                    child: PinPut(
-                      keyboardType: TextInputType.number,
-                      textStyle:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                      fieldsCount: 4,
-                      focusNode: _pinPutFocusNode2,
-                      controller: _pinPutController2,
-                      submittedFieldDecoration: _pinPutDecoration.copyWith(
-                          borderRadius: BorderRadius.circular(20)),
-                      selectedFieldDecoration: _pinPutDecoration,
-                      followingFieldDecoration: _pinPutDecoration.copyWith(
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                          width: 2,
-                          color: Color(0xfff67041),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  CustomRaisedButton(
-                    onPressed: createPin,
-                    text: "Create Pin",
-                  ),
-                  SizedBox(
-                    height: 20,
-                  )
-                ],
-              ),
+    return SafeArea(
+          child: GestureDetector(
+        onTap: _closeKeyboard,
+        child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.grey,
             ),
-          )),
+            backgroundColor: theme.backgroundColor,
+            body: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text(
+                      "Create PIN",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(20),
+                      padding: EdgeInsets.only(left: 20, right: 20),
+                      child: PinPut(
+                        keyboardType: TextInputType.number,
+                        textStyle:
+                            TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                        fieldsCount: 4,
+                        focusNode: _pinPutFocusNode1,
+                        controller: _pinPutController1,
+                        submittedFieldDecoration: _pinPutDecoration.copyWith(
+                            borderRadius: BorderRadius.circular(20)),
+                        selectedFieldDecoration: _pinPutDecoration,
+                        followingFieldDecoration: _pinPutDecoration.copyWith(
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(
+                            width: 2,
+                            color: Color(0xfff67041),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 30),
+                    Text(
+                      "Verify PIN",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(20),
+                      padding: EdgeInsets.only(left: 20, right: 20),
+                      child: PinPut(
+                        keyboardType: TextInputType.number,
+                        textStyle:
+                            TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                        fieldsCount: 4,
+                        focusNode: _pinPutFocusNode2,
+                        controller: _pinPutController2,
+                        submittedFieldDecoration: _pinPutDecoration.copyWith(
+                            borderRadius: BorderRadius.circular(20)),
+                        selectedFieldDecoration: _pinPutDecoration,
+                        followingFieldDecoration: _pinPutDecoration.copyWith(
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(
+                            width: 2,
+                            color: Color(0xfff67041),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    CustomRaisedButton(
+                      onPressed: createPin,
+                      text: "Create Pin",
+                    ),
+                    SizedBox(
+                      height: 20,
+                    )
+                  ],
+                ),
+              ),
+            )),
+      ),
     );
   }
 }

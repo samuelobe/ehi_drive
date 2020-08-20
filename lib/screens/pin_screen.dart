@@ -17,45 +17,47 @@ class PinScreenState extends State<PinScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => PinCubit(),
-      child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.grey,
-            title: Text("Input PIN"),
-          ),
-          backgroundColor: theme.backgroundColor,
-          body: BlocBuilder<PinCubit, String>(
-            builder: (context, state) {
-              if (state.length == 4) {
-                auth.verifyPin(pin: state, context: context);
-              }
-              return Center(
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      PinCircles(
-                        numActive: state.length,
-                      ),
-                      SizedBox(height: 40),
-                      Pin(),
-                      SizedBox(height: 10),
-                      CustomRaisedButton(
-                        onPressed: () =>
-                            auth.unregisterDevice(context: context),
-                        text: "Un-Register",
-                      ),
-                      SizedBox(
-                        height: 10,
-                      )
-                    ],
+    return SafeArea(
+          child: BlocProvider(
+        create: (context) => PinCubit(),
+        child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.grey,
+              title: Text("Input PIN"),
+            ),
+            backgroundColor: theme.backgroundColor,
+            body: BlocBuilder<PinCubit, String>(
+              builder: (context, state) {
+                if (state.length == 4) {
+                  auth.verifyPin(pin: state, context: context);
+                }
+                return Center(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        PinCircles(
+                          numActive: state.length,
+                        ),
+                        SizedBox(height: 40),
+                        Pin(),
+                        SizedBox(height: 10),
+                        CustomRaisedButton(
+                          onPressed: () =>
+                              auth.unregisterDevice(context: context),
+                          text: "Un-Register",
+                        ),
+                        SizedBox(
+                          height: 10,
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              );
-            },
-          )),
+                );
+              },
+            )),
+      ),
     );
   }
 }

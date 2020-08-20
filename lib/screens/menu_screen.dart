@@ -122,30 +122,32 @@ class _MenuScreenState extends State<MenuScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => MenuCubit(),
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.grey,
-          title: Text('Menu Screen'),
-          automaticallyImplyLeading: false,
-        ),
-        body: BlocBuilder<MenuCubit, List<File>>(
-          builder: (context, files) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  FlatButton(
-                    child: Text("Upload to EHI Drive"),
-                    color: Colors.grey,
-                    onPressed: () => getFiles(context),
-                  ),
-                  // Text(files != null ? files.length.toString() : "0"),
-                ],
-              ),
-            );
-          },
+    return SafeArea(
+          child: BlocProvider(
+        create: (context) => MenuCubit(),
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.grey,
+            title: Text('Menu Screen'),
+            automaticallyImplyLeading: false,
+          ),
+          body: BlocBuilder<MenuCubit, List<File>>(
+            builder: (context, files) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FlatButton(
+                      child: Text("Upload to EHI Drive"),
+                      color: Colors.grey,
+                      onPressed: () => getFiles(context),
+                    ),
+                    // Text(files != null ? files.length.toString() : "0"),
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

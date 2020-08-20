@@ -44,60 +44,62 @@ class _ShareScreenState extends State<ShareScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _closeKeyboard,
-      child: Scaffold(
-        appBar: AppBar(
-          actions: [
-            IconButton(
-              icon: Icon(Icons.send),
-              onPressed: () {},
+    return SafeArea(
+          child: GestureDetector(
+        onTap: _closeKeyboard,
+        child: Scaffold(
+          appBar: AppBar(
+            actions: [
+              IconButton(
+                icon: Icon(Icons.send),
+                onPressed: () {},
+              ),
+            ],
+            automaticallyImplyLeading: false,
+            leading: IconButton(
+              icon: Icon(Icons.close),
+              onPressed: () => Navigator.pop(context),
             ),
-          ],
-          automaticallyImplyLeading: false,
-          leading: IconButton(
-            icon: Icon(Icons.close),
-            onPressed: () => Navigator.pop(context),
+            backgroundColor: Colors.grey,
+            title: Text("Share Screen"),
           ),
-          backgroundColor: Colors.grey,
-          title: Text("Share Screen"),
-        ),
-        backgroundColor: theme.backgroundColor,
-        body: Column(
-          children: [
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: TextField(
-                  keyboardType: TextInputType.text,
-                  minLines: 5,
-                  maxLines: 10,
-                  autocorrect: false,
-                  decoration: InputDecoration(
-                    hintText: 'Write your upload description here',
-                    filled: true,
-                    fillColor: Colors.white,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: Colors.grey),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      borderSide: BorderSide(color: Colors.grey),
+          backgroundColor: theme.backgroundColor,
+          body: Column(
+            children: [
+              Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: TextField(
+                    keyboardType: TextInputType.text,
+                    minLines: 5,
+                    maxLines: 10,
+                    autocorrect: false,
+                    decoration: InputDecoration(
+                      hintText: 'Write your upload description here',
+                      filled: true,
+                      fillColor: Colors.white,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        borderSide: BorderSide(color: Colors.grey),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            Flexible(
-                child: NotificationListener<OverscrollIndicatorNotification>(
-                    onNotification:
-                        (OverscrollIndicatorNotification overscroll) {
-                      overscroll.disallowGlow();
-                      return null;
-                    },
-                    child: ListView(children: _createImageList()))),
-          ],
+              Flexible(
+                  child: NotificationListener<OverscrollIndicatorNotification>(
+                      onNotification:
+                          (OverscrollIndicatorNotification overscroll) {
+                        overscroll.disallowGlow();
+                        return null;
+                      },
+                      child: ListView(children: _createImageList()))),
+            ],
+          ),
         ),
       ),
     );

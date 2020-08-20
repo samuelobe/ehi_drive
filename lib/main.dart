@@ -2,7 +2,8 @@ import 'package:device_preview/device_preview.dart' as dp;
 import 'package:ehidrive/screens/startup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:flutter/services.dart' as services;
+import 'theme/theme.dart' as theme;
 import 'services/auth.dart';
 
 void main() async {
@@ -13,6 +14,17 @@ void main() async {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
+  services.SystemChrome.setSystemUIOverlayStyle(
+              services.SystemUiOverlayStyle(
+            systemNavigationBarColor: theme.backgroundColor,
+            statusBarIconBrightness: Brightness.dark,
+
+            systemNavigationBarIconBrightness:
+                Brightness.dark,
+            statusBarColor: theme.backgroundColor,
+
+
+          ));
   runApp(dp.DevicePreview(
     enabled: false, //!kReleaseMode,
     builder: (context) => MyApp(
